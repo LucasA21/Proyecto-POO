@@ -1,0 +1,41 @@
+package model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Materia {
+
+    private String nombre;
+    private boolean esObligatoria;
+    private boolean esPromocionable;
+    private List<Materia> correlativas;
+
+
+    public Materia(String nombre, boolean esObligatoria, boolean esPromocionable){
+        this.nombre = nombre;
+        this.esObligatoria = esObligatoria;
+        this.esPromocionable = esPromocionable;
+        this.correlativas = new ArrayList<>();
+    }
+
+
+    // Aca hay que implementar un metodo para verificar si el alumno puede promocionar. ( nota >= 7 && esPromocionable = true)
+
+    // Aca hay que implementar un metodo para verificar si el alumno aprueba la cursada ( nota >= 4 )
+
+    // Aca hay que implementar un metodo para verificar si el alumno aprobo el final (nota >= 4 && aproboCursada = true)
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public List<Materia> getCorrelativas() {
+        return correlativas;
+    }
+
+    public void agregarCorrelativas(Materia correlativa){
+        correlativas.add(correlativa);
+    }
+}
+
+
