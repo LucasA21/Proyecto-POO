@@ -1,6 +1,4 @@
-# Readme
-
-## Estructura
+## Readme
 
 ### Modelos
 
@@ -27,6 +25,7 @@
 - `Verificar si un alumno se graduo:` el sistema debe verificar si el alumno finalizo todas las materias obligatorias y la cantidad de materias optativas necesarias.
 
 ---
+
 ### Vistas
 
 La idea de las vistas es usar un template para predefinir un mismo marco para todas las vistas y lo unico que cambie en cada vista es el contenido interno.
@@ -41,7 +40,7 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
 
 - `Crear materia:` en esta vista se va a tener un formulario con los siguientes campos:
   - **Nombre materia**
-  - **Es obligatoria? (checkbox) **
+  - **Es obligatoria? (checkbox)**
   - **Tiene materias correlativas? (un toggle donde se va a poder seleccionar una o mas materias correlativas vinculadas)**
 
 - `Crear Plan de estudio:` en esta vista se va a tener un formulario con los siguientes campos:
@@ -66,7 +65,7 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
   - **un toggle para seleccionar la materia**
   - **un toggle para seleccionar si aprobo cursada, promociono o aprobo final**
 
-- `Verificar estado alumno:` en esta vista se va a imprimir toda la informacion de un alumno especifico, con la carrera a la que esta inscripto, las materias aprobadas, y si ya esta graduado o no.
+- `Verificar estado alumno`: en esta vista se va a imprimir toda la informacion de un alumno especifico, con la carrera a la que esta inscripto, las materias aprobadas, y si ya esta graduado o no.
   - **un toggle para seleccionar el alumno**
 
 
@@ -80,3 +79,4 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
 ## Observaciones
 ## Patron MVC
 ## Sin DataBase
+
