@@ -77,6 +77,8 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
   - Alumno y Carrera (N) --> Clase intermedia
   - Materias correlativas --> Relacion recursiva con materia
 ## Observaciones
+  - Ver si implementar un enum en plan de estudio
+  - Ver si implementar singleton
 ## Patron MVC
 ## Sin DataBase
 
