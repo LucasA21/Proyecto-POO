@@ -1,5 +1,10 @@
 ## Readme
 
+
+### Diagrama de clases
+
+![Diagrama_de_clases.png](assets/Diagrama_de_clases.png)
+
 ### Modelos
 
 - `Carrera:` La carrera esta compuesta por un nombre y  un tipo de  plan de estudio.
@@ -10,7 +15,6 @@
 ---
 ### Clases intermedias
 
-- `InscripcionCarrera:` Esta compuesta por Alumno y Carrera 
 - `InscripcionMateria:` Esta compuesta por Alumno y Materia 
 
 ---
