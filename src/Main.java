@@ -1,13 +1,13 @@
-import view.VentanaPrincipal;
-
 import javax.swing.*;
+import view.Principal;
+import view.VentanaPrincipal;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
-                VentanaPrincipal ventana = new VentanaPrincipal();
+                Principal ventana = new Principal();
                 ventana.setVisible(true);
             }
         });

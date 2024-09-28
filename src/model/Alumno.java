@@ -18,6 +18,7 @@ public class Alumno {
     }
 
 
+
     public String getNombre() {
         return nombre;
     }
@@ -30,7 +31,10 @@ public class Alumno {
         materiasAprobadas.add(aprobadas);
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public String toString() {
+        return "Alumno{" +
+               "Dni="+dni+
+                "Nombre=" + nombre +
+                '}';
     }
 }
