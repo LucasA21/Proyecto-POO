@@ -81,4 +81,4 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
   - Ver si implementar singleton
 ## Patron MVC
 ## Sin DataBase
-
+##
