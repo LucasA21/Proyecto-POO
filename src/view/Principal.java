@@ -169,8 +169,7 @@ public class Principal extends JFrame {
 
         bottomRightPanel = new JPanel();
         bottomRightPanel.setBackground(Color.white);
-        bottomRightPanel.add(new JLabel("<html><center><br><br><br>Bienvenido al Sistema de Gestión Universitaria.<br><br>Aquí puedes realizar las siguientes acciones:<br>- Crear Alumno<br>- Crear Materia<br>- Crear Plan de Estudio<br>- Crear Carrera<br>- Inscribir Alumno<br>- Agregar Notas<br>- Ver Estado de Alumno</center></html>", JLabel.CENTER));
-
+        bottomRightPanel.add(new HomeView());
         rightPanel = new JPanel();
         rightPanel.setLayout(new BorderLayout());
         rightPanel.add(topRightPanel, BorderLayout.NORTH);

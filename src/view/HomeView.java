@@ -15,7 +15,7 @@ public class HomeView extends JPanel {
         add(inicio, BorderLayout.NORTH);
 
         // Crear y configurar el ícono
-        ImageIcon icono = new ImageIcon("assets/icons/universidad.png");
+        ImageIcon icono = new ImageIcon("assets/icons/universidad3.png");
         Image img = icono.getImage();
         Image resizedImage = img.getScaledInstance(220, 220, Image.SCALE_SMOOTH);
         icono = new ImageIcon(resizedImage);
