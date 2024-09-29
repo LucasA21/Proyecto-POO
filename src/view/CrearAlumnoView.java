@@ -5,6 +5,10 @@ import java.awt.*;
 
 public class CrearAlumnoView extends JPanel {
 
+    private JTextField textNombre;
+    private JTextField textDni;
+    private JButton btnEnviar;
+
     public CrearAlumnoView() {
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout()); // Usamos GridBagLayout para un control más preciso
@@ -14,7 +18,7 @@ public class CrearAlumnoView extends JPanel {
 
         // Etiqueta y campo de texto para Nombre
         JLabel labelNombre = new JLabel("Nombre:");
-        JTextField textNombre = new JTextField();
+        textNombre = new JTextField();
         textNombre.setPreferredSize(new Dimension(200, 20)); // Ajustamos el tamaño preferido
 
         gbc.gridx = 0; // Columna 0
@@ -29,7 +33,7 @@ public class CrearAlumnoView extends JPanel {
 
         // Etiqueta y campo de texto para DNI
         JLabel labelDni = new JLabel("DNI:");
-        JTextField textDni = new JTextField();
+        textDni = new JTextField();
         textDni.setPreferredSize(new Dimension(200, 20)); // Ajustamos el tamaño preferido
 
         gbc.gridx = 0; // Columna 0
@@ -43,7 +47,7 @@ public class CrearAlumnoView extends JPanel {
         add(textDni, gbc);
 
         // Botón de enviar
-        JButton btnEnviar = new JButton("Enviar");
+        btnEnviar = new JButton("Enviar");
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 2; // Fila 2
@@ -52,5 +56,22 @@ public class CrearAlumnoView extends JPanel {
         gbc.anchor = GridBagConstraints.CENTER; // Centrar el botón
         gbc.weighty = 0; // No necesita expandirse
         add(btnEnviar, gbc);
+    }
+
+    public String getTextDni() {
+        return textDni.getText();
+    }
+
+    public String getTextNombre() {
+        return textNombre.getText();
+    }
+
+    public JButton getBtnEnviar() {
+        return btnEnviar;
+    }
+
+    public void limpiarCampos() {
+        textNombre.setText("");
+        textDni.setText("");
     }
 }

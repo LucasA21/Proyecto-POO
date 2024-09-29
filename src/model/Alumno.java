@@ -31,10 +31,9 @@ public class Alumno {
         materiasAprobadas.add(aprobadas);
     }
 
+    @Override
     public String toString() {
-        return "Alumno{" +
-               "Dni="+dni+
-                "Nombre=" + nombre +
-                '}';
+        return String.valueOf(this.dni); // Devuelve solo el DNI del alumno
     }
+
 }

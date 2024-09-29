@@ -3,15 +3,24 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class HomeView extends JPanel{
+public class HomeView extends JPanel {
 
-        public  HomeView(){
-            setBackground(Color.white);
-            JLabel inicio = new JLabel("<html><center><br><br><br>Bienvenido al Sistema de Gestión Universitaria." +
-                    "<br><br>Aquí puedes realizar las siguientes acciones:" +
-                    "<br>- Crear Alumno<br>- Crear Materia<br>- Crear Plan de Estudio<br>- Crear Carrera<br>- " +
-                    "Inscribir Alumno<br>- Agregar Notas<br>- Ver Estado de Alumno</center></html>", JLabel.CENTER);
-            add(inicio);
+    public HomeView() {
+        setBackground(Color.white);
+        setLayout(new BorderLayout());
 
-        }
+        JLabel inicio = new JLabel("<html><br><br>Bienvenido!<br><br><br></html>", JLabel.CENTER);
+
+        inicio.setFont(new Font("Arial", Font.PLAIN, 20));
+        add(inicio, BorderLayout.NORTH);
+
+        // Crear y configurar el ícono
+        ImageIcon icono = new ImageIcon("assets/icons/universidad.png");
+        Image img = icono.getImage();
+        Image resizedImage = img.getScaledInstance(220, 220, Image.SCALE_SMOOTH);
+        icono = new ImageIcon(resizedImage);
+
+        JLabel iconoLabel = new JLabel(icono, JLabel.CENTER);
+        add(iconoLabel, BorderLayout.CENTER); // Agregar el ícono al panel
+    }
 }

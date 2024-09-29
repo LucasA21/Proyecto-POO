@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import controller.CrearAlumnoController;
+import controller.VerEstadoController;
 
 public class Principal extends JFrame {
     private JPanel leftPanel;
@@ -19,11 +21,16 @@ public class Principal extends JFrame {
     private final Color buttonColor = new Color(40, 116, 166); // Azul más claro
     private JLabel sectionTitle; // Título de la sección actual
 
+    private CrearAlumnoController crearAlumnoController;
+
     public Principal() {
         setTitle("Sistema de Gestión Universitaria");
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        CrearAlumnoView crearAlumnoView = new CrearAlumnoView();
+        crearAlumnoController = new CrearAlumnoController(crearAlumnoView);
 
         // Crear panel izquierdo
         leftPanel = new JPanel(new BorderLayout());
@@ -80,8 +87,8 @@ public class Principal extends JFrame {
            mostrarVista(new HomeView(), "Inicio");
         });
 
-        JPanel btnCrearAlumno = crearBotonConIcono("Crear Alumno", "assets/icons/user.png", e -> {
-            mostrarVista(new CrearAlumnoView(), "Crear Alumno");
+        JPanel btnCrearAlumno = crearBotonConIcono("Crear Alumno", "assets/icons/user.png", e -> {// Crea el controlador
+            mostrarVista(crearAlumnoView, "Crear Alumno");
         });
 
         JPanel btnCrearMateria = crearBotonConIcono("Crear Materia", "assets/icons/materia.png", e -> {
@@ -109,7 +116,9 @@ public class Principal extends JFrame {
         });
 
         JPanel btnVerEstado = crearBotonConIcono("Ver Estado Alumno", "assets/icons/estado.png", e -> {
-            mostrarVista(new VerEstadoView(), "Ver Estado Alumno");
+            VerEstadoView verEstadoView = new VerEstadoView();
+            new VerEstadoController(crearAlumnoController, verEstadoView);
+            mostrarVista(verEstadoView, "Ver Estado Alumno");
         });
 
         // Agregar botones al panel de botones
@@ -186,7 +195,7 @@ public class Principal extends JFrame {
 
         ImageIcon icono = new ImageIcon(rutaIcono);
         Image img = icono.getImage();
-        Image resizedImage = img.getScaledInstance(20, 20, java.awt.Image.SCALE_SMOOTH);
+        Image resizedImage = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         icono = new ImageIcon(resizedImage);
 
         JPanel iconoPanel = new JPanel();
