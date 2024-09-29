@@ -45,6 +45,7 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
 - `Crear materia:` en esta vista se va a tener un formulario con los siguientes campos:
   - **Nombre materia**
   - **Es obligatoria? (checkbox)**
+  - **Es promocionable? (checkbox)**
   - **Tiene materias correlativas? (un toggle donde se va a poder seleccionar una o mas materias correlativas vinculadas)**
 
 - `Crear Plan de estudio:` en esta vista se va a tener un formulario con los siguientes campos:

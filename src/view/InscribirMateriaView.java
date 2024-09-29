@@ -3,9 +3,9 @@ package view;
 import javax.swing.*;
 import java.awt.*;
 
-public class InscribirAlumnoView extends JPanel {
+public class InscribirMateriaView extends JPanel {
 
-    public InscribirAlumnoView() {
+    public InscribirMateriaView() {
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -30,19 +30,19 @@ public class InscribirAlumnoView extends JPanel {
         add(comboAlumno, gbc);
 
 
-        JLabel labelCarrera = new JLabel("Asignar Carrera:");
-        JComboBox comboCarrera = new JComboBox();
-        comboCarrera.setPreferredSize(new Dimension(200,20));
+        JLabel labelMateria = new JLabel("Materia:");
+        JComboBox comboMateria = new JComboBox();
+        comboMateria.setPreferredSize(new Dimension(200,20));
 
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.weightx = 0;
-        add(labelCarrera, gbc);
+        add(labelMateria, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.weightx = 1.0;
-        add(comboCarrera, gbc);
+        add(comboMateria, gbc);
 
 
         // Botón de enviar

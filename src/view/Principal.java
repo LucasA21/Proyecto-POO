@@ -75,6 +75,11 @@ public class Principal extends JFrame {
         gbcButtons.fill = GridBagConstraints.HORIZONTAL;
 
         // Crear botones
+
+        JPanel btnIncio = crearBotonConIcono("Inicio", "assets/icons/home.png", e ->{
+           mostrarVista(new HomeView(), "Inicio");
+        });
+
         JPanel btnCrearAlumno = crearBotonConIcono("Crear Alumno", "assets/icons/user.png", e -> {
             mostrarVista(new CrearAlumnoView(), "Crear Alumno");
         });
@@ -95,6 +100,10 @@ public class Principal extends JFrame {
             mostrarVista(new InscribirAlumnoView(), "Inscribir Alumno");
         });
 
+        JPanel btnInscribirMateria = crearBotonConIcono("Inscribir Materia", "assets/icons/inscribir_materia.png", e -> {
+            mostrarVista(new InscribirMateriaView(), "Inscribir Materia");
+        });
+
         JPanel btnAgregarNotas = crearBotonConIcono("Agregar Notas", "assets/icons/notas.png", e -> {
             mostrarVista(new AgregarNotasView(), "Agregar Notas");
         });
@@ -104,11 +113,13 @@ public class Principal extends JFrame {
         });
 
         // Agregar botones al panel de botones
+        buttonPanel.add(btnIncio,gbcButtons);
         buttonPanel.add(btnCrearAlumno, gbcButtons);
         buttonPanel.add(btnCrearMateria, gbcButtons);
         buttonPanel.add(btnCrearPlan, gbcButtons);
         buttonPanel.add(btnCrearCarrera, gbcButtons);
         buttonPanel.add(btnInscribirAlumno, gbcButtons);
+        buttonPanel.add(btnInscribirMateria,gbcButtons);
         buttonPanel.add(btnAgregarNotas, gbcButtons);
         buttonPanel.add(btnVerEstado, gbcButtons);
 
@@ -138,7 +149,7 @@ public class Principal extends JFrame {
         adminLabel.setForeground(Color.WHITE);
         adminPanel.add(adminLabel);
 
-        String fechaActual = new SimpleDateFormat("'Hoy es' EEEE dd 'de' MMMM 'de   ' yyyy").format(new Date());
+        String fechaActual = new SimpleDateFormat("'Hoy es' EEEE dd 'de' MMMM 'de ' yyyy").format(new Date());
         JLabel fechaLabel = new JLabel(fechaActual, JLabel.CENTER);
         fechaLabel.setForeground(Color.lightGray);
         fechaLabel.setFont(new Font("Arial", Font.ITALIC, 18));
@@ -149,7 +160,7 @@ public class Principal extends JFrame {
 
         bottomRightPanel = new JPanel();
         bottomRightPanel.setBackground(Color.white);
-        bottomRightPanel.add(new JLabel("Contenido inicial"));
+        bottomRightPanel.add(new JLabel("<html><center><br><br><br>Bienvenido al Sistema de Gestión Universitaria.<br><br>Aquí puedes realizar las siguientes acciones:<br>- Crear Alumno<br>- Crear Materia<br>- Crear Plan de Estudio<br>- Crear Carrera<br>- Inscribir Alumno<br>- Agregar Notas<br>- Ver Estado de Alumno</center></html>", JLabel.CENTER));
 
         rightPanel = new JPanel();
         rightPanel.setLayout(new BorderLayout());

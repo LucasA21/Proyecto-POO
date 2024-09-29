@@ -7,23 +7,68 @@ public class AgregarNotasView extends JPanel {
 
     public AgregarNotasView() {
         setBackground(Color.WHITE);
-        setLayout(new GridLayout(3, 2, 10, 15)); // Configuramos el layout en una cuadrícula de 3 filas y 2 columnas
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL; // Para que los componentes se ajusten horizontalmente
+        gbc.insets = new Insets(10, 10, 10, 10); // Margen entre componentes
 
-        // Etiquetas y campos de texto
-        JLabel labelNombre = new JLabel("Nombre:");
-        JTextField textNombre = new JTextField();
 
-        JLabel labelDni = new JLabel("DNI:");
-        JTextField textDni = new JTextField();
 
+
+        JLabel labelAlumno = new JLabel("Alumno:");
+        JComboBox comboAlumno = new JComboBox();
+        comboAlumno.setPreferredSize(new Dimension(200,20));
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.weightx = 0;
+        add(labelAlumno, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.weightx = 1.0;
+        add(comboAlumno, gbc);
+
+
+        JLabel labelMateria = new JLabel("Materia:");
+        JComboBox comboMateria = new JComboBox();
+        comboMateria.setPreferredSize(new Dimension(200,20));
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.weightx = 0;
+        add(labelMateria, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.weightx = 1.0;
+        add(comboMateria, gbc);
+
+        JLabel labelNota = new JLabel("Condicion:");
+        JComboBox comboNota = new JComboBox();
+        comboNota.setPreferredSize(new Dimension(200,20));
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.weightx = 0;
+        add(labelNota, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.weightx = 1.0;
+        add(comboNota, gbc);
+
+
+        // Botón de enviar
         JButton btnEnviar = new JButton("Enviar");
 
-        // Añadir componentes al panel
-        add(labelNombre);
-        add(textNombre);
-        add(labelDni);
-        add(textDni);
-        add(new JLabel()); // Añadir un espacio vacío
-        add(btnEnviar);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2; // Ocupa dos columnas
+        gbc.fill = GridBagConstraints.NONE; // No expandir el botón
+        gbc.anchor = GridBagConstraints.CENTER; // Centrar el botón
+        gbc.weightx = 0;
+        gbc.weighty = 0;
+        add(btnEnviar, gbc);
     }
 }
