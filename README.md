@@ -1,6 +1,10 @@
 ## Readme
 
 
+### View Principal
+
+![ViewPrincipal.png](assets/ViewPrincipal.png)
+
 ### Diagrama de clases
 
 ![Diagrama_de_clases.png](assets/Diagrama_de_clases.png)
