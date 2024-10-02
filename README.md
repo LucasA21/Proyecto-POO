@@ -46,6 +46,11 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
   - **Cargar notas** 
   - **Verificar estado alumno**
 
+- `Crear alumno`: en esta vista se va a tener un formulario con los siguientes campos:
+  - **Dni**
+  - **Nombre**
+
+
 - `Crear materia:` en esta vista se va a tener un formulario con los siguientes campos:
   - **Nombre materia**
   - **Es obligatoria? (checkbox)**

@@ -6,13 +6,13 @@ import java.util.List;
 public class Materia {
 
     private String nombre;
-    private int cuatrimestre;
+    private String cuatrimestre;
     private boolean esObligatoria;
     private boolean esPromocionable;
     private List<Materia> correlativas;
 
 
-    public Materia(String nombre, int cuatrimestre,boolean esObligatoria, boolean esPromocionable){
+    public Materia(String nombre, String cuatrimestre,boolean esObligatoria, boolean esPromocionable){
         this.nombre = nombre;
         this.esObligatoria = esObligatoria;
         this.esPromocionable = esPromocionable;

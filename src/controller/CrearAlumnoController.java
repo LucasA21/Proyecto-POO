@@ -3,6 +3,7 @@ package controller;
 import model.Alumno;
 import view.CrearAlumnoView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -30,10 +31,8 @@ public class CrearAlumnoController {
 
         Alumno nuevoAlumno = new Alumno(dni,nombre);
         listaAlumnos.add(nuevoAlumno);
-
-        System.out.println("Alumno creado: " + nuevoAlumno);
-
         view.limpiarCampos();
+        JOptionPane.showMessageDialog(null, "Alumno creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public List<Alumno> getListaAlumnos() {

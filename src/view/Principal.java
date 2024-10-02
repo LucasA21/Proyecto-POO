@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import controller.CrearAlumnoController;
+import controller.CrearMateriaController;
 import controller.VerEstadoController;
 
 public class Principal extends JFrame {
@@ -21,6 +22,7 @@ public class Principal extends JFrame {
     private final Color buttonColor = new Color(40, 116, 166); // Azul más claro
     private JLabel sectionTitle; // Título de la sección actual
 
+    private CrearMateriaController crearMateriaController;
     private CrearAlumnoController crearAlumnoController;
 
     public Principal() {
@@ -28,6 +30,9 @@ public class Principal extends JFrame {
         setSize(800, 600);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
+
+        CrearMateriaView CrearMateriaView = new CrearMateriaView();
+        crearMateriaController = new CrearMateriaController(CrearMateriaView);
 
         CrearAlumnoView crearAlumnoView = new CrearAlumnoView();
         crearAlumnoController = new CrearAlumnoController(crearAlumnoView);
@@ -92,7 +97,7 @@ public class Principal extends JFrame {
         });
 
         JPanel btnCrearMateria = crearBotonConIcono("Crear Materia", "assets/icons/materia.png", e -> {
-            mostrarVista(new CrearMateriaView(), "Crear Materia");
+            mostrarVista(CrearMateriaView, "Crear Materia");
         });
 
         JPanel btnCrearPlan = crearBotonConIcono("Crear Plan de Estudio", "assets/icons/plan.png", e -> {
