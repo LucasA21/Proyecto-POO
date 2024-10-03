@@ -1,9 +1,19 @@
 package view;
 
+import model.Materia;
+import model.TipoPLan;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CrearPlanView extends JPanel {
+
+    JTextField textNombre;
+    JComboBox comboTipo;
+    JPanel panelMaterias;
+    JButton btnEnviar;
 
     public CrearPlanView() {
         setBackground(Color.WHITE);
@@ -14,7 +24,7 @@ public class CrearPlanView extends JPanel {
 
         // Etiqueta y campo de texto para Nombre
         JLabel labelNombre = new JLabel("Nombre:");
-        JTextField textNombre = new JTextField();
+        textNombre = new JTextField();
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 0; // Fila 0
@@ -28,7 +38,7 @@ public class CrearPlanView extends JPanel {
 
         // Etiqueta y JComboBox para Tipo de plan
         JLabel labelTipo = new JLabel("Tipo de plan:");
-        JComboBox comboTipo = new JComboBox();
+        comboTipo = new JComboBox<>(TipoPLan.values());
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -47,15 +57,8 @@ public class CrearPlanView extends JPanel {
         gbc.weightx = 0;
         add(labelMaterias, gbc);
 
-        // Panel con JCheckBox para las materias
-        JPanel panelMaterias = new JPanel();
-        panelMaterias.setLayout(new BoxLayout(panelMaterias, BoxLayout.Y_AXIS)); // Usamos BoxLayout para organizar las casillas verticalmente
-        String[] materias = {"Matemáticas", "Física", "Química", "Historia", "Biología", "Lengua", "Geografía"};
-
-        for (String materia : materias) {
-            JCheckBox checkBox = new JCheckBox(materia);
-            panelMaterias.add(checkBox);
-        }
+        panelMaterias = new JPanel();
+        panelMaterias.setLayout(new BoxLayout(panelMaterias, BoxLayout.Y_AXIS));
 
         // Hacer el panel desplazable
         JScrollPane scrollPane = new JScrollPane(panelMaterias);
@@ -68,7 +71,7 @@ public class CrearPlanView extends JPanel {
         add(scrollPane, gbc);
 
         // Botón de enviar
-        JButton btnEnviar = new JButton("Enviar");
+        btnEnviar = new JButton("Enviar");
 
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -78,5 +81,50 @@ public class CrearPlanView extends JPanel {
         gbc.weightx = 0;
         gbc.weighty = 0;
         add(btnEnviar, gbc);
+    }
+
+    public void actualizarMaterias(List<Materia> materiasDisponibles){
+        panelMaterias.removeAll();
+
+        for (Materia materia : materiasDisponibles) {
+            JCheckBox checkBox = new JCheckBox(materia.getNombre());
+            panelMaterias.add(checkBox);
+        }
+
+        panelMaterias.revalidate();
+        panelMaterias.repaint();
+    }
+
+    public List<JCheckBox> getCheckboxMaterias() {
+        List<JCheckBox> checkboxes = new ArrayList<>();
+        for (Component c : panelMaterias.getComponents()) {
+            if (c instanceof JCheckBox) {
+                checkboxes.add((JCheckBox) c);
+            }
+        }
+        return checkboxes;
+    }
+
+    public String getTextNombre() {
+        return textNombre.getText();
+    }
+
+    public TipoPLan getTipoPlan(){
+        return (TipoPLan) comboTipo.getSelectedItem();
+    }
+
+    public JButton getBtnEnviar() {
+        return btnEnviar;
+    }
+
+    public void limpiarCampos() {
+        textNombre.setText("");
+        comboTipo.setSelectedIndex(0);
+
+        for (Component c : panelMaterias.getComponents()) {
+            if (c instanceof JCheckBox) {
+                ((JCheckBox) c).setSelected(false);
+            }
+        }
     }
 }

@@ -9,12 +9,12 @@ import java.util.List;
 
 public class CrearMateriaView extends JPanel {
 
-    JTextField textNombre;
-    JTextField textCuatrimestre;
-    JCheckBox checkObligatoria;
-    JCheckBox checkPromocion;
-    JPanel panelCorrelativas;
-    JButton btnEnviar;
+    private JTextField textNombre;
+    private JTextField textCuatrimestre;
+    private JCheckBox checkObligatoria;
+    private JCheckBox checkPromocion;
+    private JPanel panelCorrelativas;
+    private JButton btnEnviar;
 
     public CrearMateriaView() {
         setBackground(Color.WHITE);

@@ -7,9 +7,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import controller.CrearAlumnoController;
 import controller.CrearMateriaController;
+import controller.CrearPlanEstudioController;
 import controller.VerEstadoController;
 
 public class Principal extends JFrame {
+
+    // Creacion de paneles principales
+
     private JPanel leftPanel;
     private JPanel topLeftPanel;
     private JPanel rightPanel;
@@ -18,12 +22,20 @@ public class Principal extends JFrame {
     private JPanel sectionPanel;
     private JPanel adminPanel;
 
+    // Colores globales
+
     private final Color panelColor = new Color(27, 79, 114); // Azul oscuro
     private final Color buttonColor = new Color(40, 116, 166); // Azul más claro
-    private JLabel sectionTitle; // Título de la sección actual
 
+    private final JLabel sectionTitle; // Título de la sección actual
+
+    // Controllers
+
+    private VerEstadoController verEstadoController;
     private CrearMateriaController crearMateriaController;
     private CrearAlumnoController crearAlumnoController;
+    private CrearPlanEstudioController crearPlanEstudioController;
+
 
     public Principal() {
         setTitle("Sistema de Gestión Universitaria");
@@ -31,23 +43,44 @@ public class Principal extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
 
-        CrearMateriaView CrearMateriaView = new CrearMateriaView();
-        crearMateriaController = new CrearMateriaController(CrearMateriaView);
+
+        // Creacion de views y controllers
+        HomeView homeView = new HomeView();
 
         CrearAlumnoView crearAlumnoView = new CrearAlumnoView();
         crearAlumnoController = new CrearAlumnoController(crearAlumnoView);
 
-        // Crear panel izquierdo
+        CrearMateriaView crearMateriaView = new CrearMateriaView();
+        crearMateriaController = new CrearMateriaController(crearMateriaView);
+
+        CrearPlanView crearPlanView = new CrearPlanView();
+        crearPlanEstudioController = new CrearPlanEstudioController(crearPlanView, crearMateriaController);
+
+        CrearCarreraView crearCarreraView = new CrearCarreraView();
+
+        InscribirAlumnoView inscribirAlumnoView = new InscribirAlumnoView();
+
+        InscribirMateriaView inscribirMateriaView = new InscribirMateriaView();
+
+        AgregarNotasView agregarNotasView = new AgregarNotasView();
+
+        VerEstadoView verEstadoView = new VerEstadoView();
+        verEstadoController  = new VerEstadoController(crearAlumnoController,verEstadoView);
+
+
+
+        // Creacion panel izquierdo
+
         leftPanel = new JPanel(new BorderLayout());
         leftPanel.setBackground(panelColor);
         leftPanel.setPreferredSize(new Dimension(190, getHeight()));
 
         // Panel superior del lado izquierdo con título "Gestión Universitaria"
+
         topLeftPanel = new JPanel(new GridBagLayout());
         topLeftPanel.setBackground(panelColor);
         topLeftPanel.setPreferredSize(new Dimension(200, 70));
 
-        // Crear las dos líneas de texto "Gestión" y "Universitaria"
         JLabel gestionLabel = new JLabel("Gestión", JLabel.CENTER);
         gestionLabel.setFont(new Font("Arial", Font.BOLD, 18));
         gestionLabel.setForeground(Color.WHITE);
@@ -64,7 +97,6 @@ public class Principal extends JFrame {
         gbc.weighty = 0.5;
         gbc.anchor = GridBagConstraints.CENTER;
         topLeftPanel.add(gestionLabel, gbc);
-
         gbc.gridy = 1;
         topLeftPanel.add(universitariaLabel, gbc);
 
@@ -86,10 +118,10 @@ public class Principal extends JFrame {
         gbcButtons.gridy = GridBagConstraints.RELATIVE;
         gbcButtons.fill = GridBagConstraints.HORIZONTAL;
 
-        // Crear botones
+        // Crear botones, aca se vincula los botones con sus respectivos controllers
 
         JPanel btnIncio = crearBotonConIcono("Inicio", "assets/icons/home.png", e ->{
-           mostrarVista(new HomeView(), "Inicio");
+           mostrarVista(homeView, "Inicio");
         });
 
         JPanel btnCrearAlumno = crearBotonConIcono("Crear Alumno", "assets/icons/user.png", e -> {// Crea el controlador
@@ -97,36 +129,35 @@ public class Principal extends JFrame {
         });
 
         JPanel btnCrearMateria = crearBotonConIcono("Crear Materia", "assets/icons/materia.png", e -> {
-            mostrarVista(CrearMateriaView, "Crear Materia");
+            mostrarVista(crearMateriaView, "Crear Materia");
         });
 
         JPanel btnCrearPlan = crearBotonConIcono("Crear Plan de Estudio", "assets/icons/plan.png", e -> {
-            mostrarVista(new CrearPlanView(), "Crear Plan de Estudio");
+            mostrarVista(crearPlanView, "Crear Plan de Estudio");
         });
 
         JPanel btnCrearCarrera = crearBotonConIcono("Crear Carrera", "assets/icons/carrera.png", e -> {
-            mostrarVista(new CrearCarreraView(), "Crear Carrera");
+            mostrarVista(crearCarreraView, "Crear Carrera");
         });
 
         JPanel btnInscribirAlumno = crearBotonConIcono("Inscribir Alumno", "assets/icons/inscribir_alumno.png", e -> {
-            mostrarVista(new InscribirAlumnoView(), "Inscribir Alumno");
+            mostrarVista(inscribirAlumnoView, "Inscribir Alumno");
         });
 
         JPanel btnInscribirMateria = crearBotonConIcono("Inscribir Materia", "assets/icons/inscribir_materia.png", e -> {
-            mostrarVista(new InscribirMateriaView(), "Inscribir Materia");
+            mostrarVista(inscribirMateriaView, "Inscribir Materia");
         });
 
         JPanel btnAgregarNotas = crearBotonConIcono("Agregar Notas", "assets/icons/notas.png", e -> {
-            mostrarVista(new AgregarNotasView(), "Agregar Notas");
+            mostrarVista(agregarNotasView, "Agregar Notas");
         });
 
         JPanel btnVerEstado = crearBotonConIcono("Ver Estado Alumno", "assets/icons/estado.png", e -> {
-            VerEstadoView verEstadoView = new VerEstadoView();
-            new VerEstadoController(crearAlumnoController, verEstadoView);
             mostrarVista(verEstadoView, "Ver Estado Alumno");
         });
 
-        // Agregar botones al panel de botones
+        // Agregar botones
+
         buttonPanel.add(btnIncio,gbcButtons);
         buttonPanel.add(btnCrearAlumno, gbcButtons);
         buttonPanel.add(btnCrearMateria, gbcButtons);
@@ -163,14 +194,17 @@ public class Principal extends JFrame {
         adminLabel.setForeground(Color.WHITE);
         adminPanel.add(adminLabel);
 
-        String fechaActual = new SimpleDateFormat("'Hoy es' EEEE dd 'de' MMMM 'de ' yyyy").format(new Date());
+        String fechaActual = new SimpleDateFormat("'Hoy es' EEEE dd 'de' MMMM 'de' yyyy").format(new Date());
         JLabel fechaLabel = new JLabel(fechaActual, JLabel.CENTER);
         fechaLabel.setForeground(Color.lightGray);
         fechaLabel.setFont(new Font("Arial", Font.ITALIC, 18));
         adminPanel.add(fechaLabel);
 
+
         topRightPanel.add(sectionPanel, BorderLayout.NORTH);
         topRightPanel.add(adminPanel, BorderLayout.CENTER);
+
+        // Creacion del panel dinamico, se inicializa con la HomeView
 
         bottomRightPanel = new JPanel();
         bottomRightPanel.setBackground(Color.white);
@@ -183,6 +217,9 @@ public class Principal extends JFrame {
         add(leftPanel, BorderLayout.WEST);
         add(rightPanel, BorderLayout.CENTER);
     }
+
+    /* Este metodo recarga el panel derecho con una vista especifica y setea el nombre de la vista
+     En el titulo de la seccion.*/
 
     private void mostrarVista(JPanel view, String vista) {
         bottomRightPanel.removeAll();
