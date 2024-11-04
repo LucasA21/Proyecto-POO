@@ -18,7 +18,6 @@ public class Alumno {
     }
 
 
-
     public String getNombre() {
         return nombre;
     }
@@ -30,6 +29,7 @@ public class Alumno {
     public void agregarMateria(Materia aprobadas){
         materiasAprobadas.add(aprobadas);
     }
+
 
     @Override
     public String toString() {

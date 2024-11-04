@@ -6,16 +6,19 @@ import java.util.List;
 public class Materia {
 
     private String nombre;
-    private String cuatrimestre;
+    private int cuatrimestre;
     private boolean esObligatoria;
     private boolean esPromocionable;
     private List<Materia> correlativas;
 
 
-    public Materia(String nombre, String cuatrimestre,boolean esObligatoria, boolean esPromocionable){
+    public Materia(String nombre, int cuatrimestre,boolean esObligatoria, boolean esPromocionable){
         this.nombre = nombre;
         this.esObligatoria = esObligatoria;
         this.esPromocionable = esPromocionable;
+        if (cuatrimestre < 1) {
+            throw new IllegalArgumentException("El cuatrimestre debe ser un número positivo.");
+        }
         this.cuatrimestre = cuatrimestre;
         this.correlativas = new ArrayList<>();
     }

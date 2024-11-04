@@ -92,5 +92,9 @@ La idea de las vistas es usar un template para predefinir un mismo marco para to
   - Libreta y Materia (1,N)
   - Materias correlativas --> Relacion recursiva con materia
 
-## Patron MVC
+## Patrones
+  
+  - Patron MVC
+  - Patron observer: este patron fue utilizado para actualizar las materias dinamicamente
+    en sus vistas correspondientes.
 

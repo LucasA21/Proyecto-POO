@@ -35,6 +35,10 @@ public class CrearAlumnoController {
         JOptionPane.showMessageDialog(null, "Alumno creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
+    public void setAlumno(Alumno alumno){
+        listaAlumnos.add(alumno);
+    }
+
     public List<Alumno> getListaAlumnos() {
         return listaAlumnos;
     }

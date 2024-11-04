@@ -1,4 +1,5 @@
 import javax.swing.*;
+
 import view.Principal;
 
 public class Main {
@@ -12,3 +13,4 @@ public class Main {
         });
     }
 }
+

@@ -9,6 +9,8 @@ import controller.CrearAlumnoController;
 import controller.CrearMateriaController;
 import controller.CrearPlanEstudioController;
 import controller.VerEstadoController;
+import model.Alumno;
+import model.Materia;
 
 public class Principal extends JFrame {
 
@@ -50,6 +52,9 @@ public class Principal extends JFrame {
         CrearAlumnoView crearAlumnoView = new CrearAlumnoView();
         crearAlumnoController = new CrearAlumnoController(crearAlumnoView);
 
+        VerEstadoView verEstadoView = new VerEstadoView();
+        verEstadoController  = new VerEstadoController(verEstadoView, crearAlumnoController);
+
         CrearMateriaView crearMateriaView = new CrearMateriaView();
         crearMateriaController = new CrearMateriaController(crearMateriaView);
 
@@ -64,8 +69,7 @@ public class Principal extends JFrame {
 
         AgregarNotasView agregarNotasView = new AgregarNotasView();
 
-        VerEstadoView verEstadoView = new VerEstadoView();
-        verEstadoController  = new VerEstadoController(crearAlumnoController,verEstadoView);
+
 
 
 
@@ -260,4 +264,20 @@ public class Principal extends JFrame {
 
         return panel;
     }
+
+    private void cargarDatosEjemplo(){
+
+
+        Alumno alumno1 = new Alumno("Juan Pérez", "12345678");
+        Alumno alumno2 = new Alumno("Ana Gómez", "87654321");
+
+
+
+        Materia materia1 = new Materia("Matemáticas", 1,false,false);
+        Materia materia2 = new Materia("Programación", 1,false,false);
+
+        crearMateriaController.setMateria(materia1);
+        crearMateriaController.setMateria(materia2);
+
+    };
 }

@@ -30,7 +30,7 @@ public class CrearMateriaController {
 
     public void crearMateria(){
         String nombre = view.getTextNombre();
-        String cuatrimestre = view.getTextCuatrimestre();
+        String cuatrimestreStr = view.getTextCuatrimestre();
         boolean esObligatoria = view.getCheckObligatoria().isSelected();
         boolean esPromocionable = view.getCheckPromocion().isSelected();
 
@@ -40,8 +40,16 @@ public class CrearMateriaController {
             return;
         }
 
-        if (cuatrimestre.isEmpty()){
+        if (cuatrimestreStr.isEmpty()){
             JOptionPane.showMessageDialog(null,"El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        int cuatrimestre;
+        try {
+            cuatrimestre = Integer.parseInt(cuatrimestreStr);  // Intentamos convertir a entero
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Ingresar valor numerico en el cuatrimestre", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -87,6 +95,10 @@ public class CrearMateriaController {
 
     public  List<Materia> getListaMaterias(){
         return listaMaterias;
+    }
+
+    public void setMateria(Materia materia){
+        listaMaterias.add(materia);
     }
 
     public void addMateriaListener(MateriaListener listener) {

@@ -11,9 +11,10 @@ public class VerEstadoController {
     private CrearAlumnoController crearAlumnoController;
     private VerEstadoView verEstadoView;
 
-    public VerEstadoController(CrearAlumnoController crearAlumnoController, VerEstadoView verEstadoView) {
-        this.crearAlumnoController = crearAlumnoController;
+    public VerEstadoController(VerEstadoView verEstadoView,CrearAlumnoController crearAlumnoController) {
+
         this.verEstadoView = verEstadoView;
+        this.crearAlumnoController = crearAlumnoController;
 
         // Cargar la lista de alumnos en el ComboBox
         cargarListaAlumnos();
