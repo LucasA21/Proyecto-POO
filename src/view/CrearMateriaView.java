@@ -23,9 +23,14 @@ public class CrearMateriaView extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10); // Margen alrededor de los componentes
         gbc.fill = GridBagConstraints.HORIZONTAL; // Para que los componentes se expandan horizontalmente
 
+        Font generalFont = viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015); // Fuente general
+
         // Etiqueta y campo de texto para Nombre
         JLabel labelNombre = new JLabel("Nombre:");
+        labelNombre.setFont(generalFont);
         textNombre = new JTextField();
+        textNombre.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Ajustamos el tamaño dinámico
+        textNombre.setFont(generalFont);
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 0; // Fila 0
@@ -37,12 +42,15 @@ public class CrearMateriaView extends JPanel {
         gbc.weightx = 1.0; // Expande el campo de texto horizontalmente
         add(textNombre, gbc);
 
-
+        // Etiqueta y campo de texto para Cuatrimestre
         JLabel labelCuatrimestre = new JLabel("Cuatrimestre:");
+        labelCuatrimestre.setFont(generalFont);
         textCuatrimestre = new JTextField();
+        textCuatrimestre.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Ajustamos el tamaño dinámico
+        textCuatrimestre.setFont(generalFont);
 
         gbc.gridx = 0; // Columna 0
-        gbc.gridy = 1; // Fila 0
+        gbc.gridy = 1; // Fila 1
         gbc.weightx = 0; // Sin expansión extra horizontal
         add(labelCuatrimestre, gbc);
 
@@ -51,29 +59,18 @@ public class CrearMateriaView extends JPanel {
         gbc.weightx = 1.0; // Expande el campo de texto horizontalmente
         add(textCuatrimestre, gbc);
 
+        // checkbox para Es obligatoria
+        checkObligatoria = crearCheckBox("Obligatoria", generalFont);
 
-
-        // Etiqueta y checkbox para Es obligatoria
-        JLabel labelObligatoria = new JLabel("Es obligatoria?");
-        checkObligatoria = new JCheckBox();
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.weightx = 0;
-        add(labelObligatoria, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 2;
         gbc.weightx = 1.0;
         add(checkObligatoria, gbc);
 
-        // Etiqueta y checkbox para Tiene promoción
-        JLabel labelPromocionable = new JLabel("Tiene promoción?");
-        checkPromocion = new JCheckBox();
+        // checkbox para Tiene promoción
+        checkPromocion = crearCheckBox("Promoción", generalFont);
 
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        add(labelPromocionable, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
@@ -81,6 +78,8 @@ public class CrearMateriaView extends JPanel {
 
         // Etiqueta para Materias correlativas
         JLabel labelCorrelativas = new JLabel("Correlativas:");
+        labelCorrelativas.setFont(generalFont);
+
         gbc.gridx = 0;
         gbc.gridy = 4;
         add(labelCorrelativas, gbc);
@@ -88,11 +87,11 @@ public class CrearMateriaView extends JPanel {
         // Panel para las materias correlativas
         panelCorrelativas = new JPanel();
         panelCorrelativas.setLayout(new BoxLayout(panelCorrelativas, BoxLayout.Y_AXIS)); // Usamos BoxLayout para organizar las casillas verticalmente
-
+        panelCorrelativas.setBackground(Color.WHITE);
 
         // Hacer el panel desplazable
         JScrollPane scrollPane = new JScrollPane(panelCorrelativas);
-        scrollPane.setPreferredSize(new Dimension(200, 100)); // Ajustamos el tamaño del JScrollPane para que coincida con CrearPlanView
+        scrollPane.setPreferredSize(viewUtils.getProportionalSize(0.4, 0.3)); // Ajustamos el tamaño del JScrollPane
 
         gbc.gridx = 1;
         gbc.gridy = 4;
@@ -102,6 +101,8 @@ public class CrearMateriaView extends JPanel {
 
         // Botón de enviar
         btnEnviar = new JButton("Enviar");
+        btnEnviar.setFont(viewUtils.getScaledFont(new Font("Arial", Font.BOLD, 14), 0.015));
+        btnEnviar.setPreferredSize(viewUtils.getProportionalSize(0.1, 0.04)); // Ajustamos el tamaño dinámico
 
         gbc.gridx = 0;
         gbc.gridy = 5;
@@ -112,11 +113,28 @@ public class CrearMateriaView extends JPanel {
         add(btnEnviar, gbc);
     }
 
-    public void actualizarCorrelativas(List<Materia> materiasDisponibles){
+    private JCheckBox crearCheckBox(String text, Font font) {
+        JCheckBox checkBox = new JCheckBox(text);
+        checkBox.setBackground(Color.WHITE);
+        checkBox.setFont(font);
+
+        // Opcional: Crear un ícono personalizado para agrandar el tamaño del checkbox
+        Icon emptyIcon = new ImageIcon(new ImageIcon("assets/icons/checkbox_empty.png")
+                .getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+        Icon filledIcon = new ImageIcon(new ImageIcon("assets/icons/checkbox_filled.png")
+                .getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+
+        checkBox.setIcon(emptyIcon);
+        checkBox.setSelectedIcon(filledIcon);
+
+        return checkBox;
+    }
+
+    public void actualizarCorrelativas(List<Materia> materiasDisponibles) {
         panelCorrelativas.removeAll();
 
         for (Materia materia : materiasDisponibles) {
-            JCheckBox checkBox = new JCheckBox(materia.getNombre());
+            JCheckBox checkBox = crearCheckBox(materia.getNombre(), viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015));
             panelCorrelativas.add(checkBox);
         }
 
@@ -146,7 +164,7 @@ public class CrearMateriaView extends JPanel {
         return checkObligatoria;
     }
 
-    public  JCheckBox getCheckPromocion() {
+    public JCheckBox getCheckPromocion() {
         return checkPromocion;
     }
 
@@ -160,12 +178,10 @@ public class CrearMateriaView extends JPanel {
         checkObligatoria.setSelected(false);
         checkPromocion.setSelected(false);
 
-
         for (Component c : panelCorrelativas.getComponents()) {
             if (c instanceof JCheckBox) {
                 ((JCheckBox) c).setSelected(false);
             }
         }
     }
-
 }

@@ -9,42 +9,31 @@ import controller.CrearAlumnoController;
 import controller.CrearMateriaController;
 import controller.CrearPlanEstudioController;
 import controller.VerEstadoController;
-import model.Alumno;
-import model.Materia;
 
 public class Principal extends JFrame {
-
-    // Creacion de paneles principales
 
     private JPanel leftPanel;
     private JPanel topLeftPanel;
     private JPanel rightPanel;
     private JPanel topRightPanel;
     private JPanel bottomRightPanel;
-    private JPanel sectionPanel;
     private JPanel adminPanel;
-
-    // Colores globales
 
     private final Color panelColor = new Color(27, 79, 114); // Azul oscuro
     private final Color buttonColor = new Color(40, 116, 166); // Azul más claro
-
-    private final JLabel sectionTitle; // Título de la sección actual
-
-    // Controllers
 
     private VerEstadoController verEstadoController;
     private CrearMateriaController crearMateriaController;
     private CrearAlumnoController crearAlumnoController;
     private CrearPlanEstudioController crearPlanEstudioController;
 
-
     public Principal() {
-        setTitle("Sistema de Gestión Universitaria");
-        setSize(800, 600);
+
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
 
         // Creacion de views y controllers
         HomeView homeView = new HomeView();
@@ -54,6 +43,8 @@ public class Principal extends JFrame {
 
         VerEstadoView verEstadoView = new VerEstadoView();
         verEstadoController  = new VerEstadoController(verEstadoView, crearAlumnoController);
+
+        crearAlumnoController.setVerEstadoController(verEstadoController);
 
         CrearMateriaView crearMateriaView = new CrearMateriaView();
         crearMateriaController = new CrearMateriaController(crearMateriaView);
@@ -71,49 +62,40 @@ public class Principal extends JFrame {
 
 
 
-
-
-        // Creacion panel izquierdo
-
+        // Panel izquierdo
         leftPanel = new JPanel(new BorderLayout());
         leftPanel.setBackground(panelColor);
-        leftPanel.setPreferredSize(new Dimension(190, getHeight()));
+        leftPanel.setPreferredSize(viewUtils.getProportionalSize(0.12, 1)); // Reducir a 15% del ancho
 
-        // Panel superior del lado izquierdo con título "Gestión Universitaria"
-
+        // Panel superior izquierdo
         topLeftPanel = new JPanel(new GridBagLayout());
         topLeftPanel.setBackground(panelColor);
-        topLeftPanel.setPreferredSize(new Dimension(200, 70));
+        topLeftPanel.setPreferredSize(viewUtils.getProportionalSize(0.14, 0.20)); // Ajustar altura del título
 
-        JLabel gestionLabel = new JLabel("Gestión", JLabel.CENTER);
-        gestionLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        gestionLabel.setForeground(Color.WHITE);
+        // Icono panel superior izquierdo
+        ImageIcon icono = new ImageIcon("assets/icons/graduado.png");
+        JLabel iconoLabel = new JLabel(viewUtils.getScaledIcon(icono.getImage(), 0.1), JLabel.CENTER); // Escalar el ícono
 
-        JLabel universitariaLabel = new JLabel("Universitaria", JLabel.CENTER);
-        universitariaLabel.setFont(new Font("Arial", Font.BOLD, 18));
-        universitariaLabel.setForeground(Color.WHITE);
-
-        // Añadir las etiquetas con un layout GridBag para que estén centradas
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.weightx = 1.0;
         gbc.weighty = 0.5;
         gbc.anchor = GridBagConstraints.CENTER;
-        topLeftPanel.add(gestionLabel, gbc);
-        gbc.gridy = 1;
-        topLeftPanel.add(universitariaLabel, gbc);
+        gbc.insets = new Insets(10, 0, 5, 0); // Ajustar espacio superior e inferior
+        topLeftPanel.add(iconoLabel, gbc);
 
-        // Línea de separación
         JSeparator separator = new JSeparator();
-        separator.setForeground(Color.WHITE); // Color de la línea
-        separator.setPreferredSize(new Dimension(150, 1)); // Ajustar el ancho
-        gbc.gridy = 2; // Posición para el separador
+        separator.setForeground(Color.WHITE);
+        separator.setPreferredSize(new Dimension(300, 2)); // Ajustar tamaño de la línea
+        gbc.gridy = 1;
+        gbc.insets = new Insets(10, 0, 0, 0); // Ajustar espacio superior de la línea
         topLeftPanel.add(separator, gbc);
+
 
         leftPanel.add(topLeftPanel, BorderLayout.NORTH);
 
-        // Panel de botones con iconos
+        // Panel de botones
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(panelColor);
 
@@ -121,11 +103,12 @@ public class Principal extends JFrame {
         gbcButtons.gridx = 0;
         gbcButtons.gridy = GridBagConstraints.RELATIVE;
         gbcButtons.fill = GridBagConstraints.HORIZONTAL;
+        gbcButtons.insets = new Insets(35, 0, 35, 0); // Espaciado entre botones
 
         // Crear botones, aca se vincula los botones con sus respectivos controllers
 
         JPanel btnIncio = crearBotonConIcono("Inicio", "assets/icons/home.png", e ->{
-           mostrarVista(homeView, "Inicio");
+            mostrarVista(homeView, "Inicio");
         });
 
         JPanel btnCrearAlumno = crearBotonConIcono("Crear Alumno", "assets/icons/user.png", e -> {// Crea el controlador
@@ -172,49 +155,36 @@ public class Principal extends JFrame {
         buttonPanel.add(btnAgregarNotas, gbcButtons);
         buttonPanel.add(btnVerEstado, gbcButtons);
 
-        // Agregar el panel de botones al panel izquierdo
         leftPanel.add(buttonPanel, BorderLayout.CENTER);
 
-        // Panel superior derecho con fondo blanco
-        topRightPanel = new JPanel();
-        topRightPanel.setLayout(new BorderLayout());
-        topRightPanel.setBackground(Color.WHITE);
-        topRightPanel.setPreferredSize(new Dimension(getWidth(), 100));
+        // Barra superior derecha
+        topRightPanel = new JPanel(new BorderLayout());
+        topRightPanel.setBackground(buttonColor);
+        topRightPanel.setPreferredSize(viewUtils.getProportionalSize(1, 0.12)); // Ajustar altura
 
-        // Panel para el título de la sección
-        sectionPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        sectionPanel.setBackground(Color.WHITE);
-        sectionPanel.setPreferredSize(new Dimension(getWidth(), 30));
-
-        sectionTitle = new JLabel("Inicio", JLabel.LEFT);
-        sectionTitle.setFont(new Font("Arial",Font.PLAIN, 15));
-        sectionPanel.add(sectionTitle);
-
-        // Panel de administración y fecha
-        adminPanel = new JPanel(new GridLayout(2, 1));
-        adminPanel.setBackground(buttonColor);
+        adminPanel = new JPanel(new GridLayout(2, 1, 0, 10)); // Espaciado vertical entre elementos
+        adminPanel.setBackground(panelColor);
+        adminPanel.setPreferredSize(viewUtils.getProportionalSize(0.87, 0.12)); // Ajustar tamaño para alinear con la línea
 
         JLabel adminLabel = new JLabel("Administración", JLabel.CENTER);
         adminLabel.setForeground(Color.WHITE);
-        adminPanel.add(adminLabel);
+        adminLabel.setFont(viewUtils.getScaledFont(new Font("Arial", Font.BOLD, 14), 0.015));
 
         String fechaActual = new SimpleDateFormat("'Hoy es' EEEE dd 'de' MMMM 'de' yyyy").format(new Date());
         JLabel fechaLabel = new JLabel(fechaActual, JLabel.CENTER);
-        fechaLabel.setForeground(Color.lightGray);
-        fechaLabel.setFont(new Font("Arial", Font.ITALIC, 18));
+        fechaLabel.setForeground(Color.LIGHT_GRAY);
+        fechaLabel.setFont(viewUtils.getScaledFont(new Font("Arial", Font.ITALIC, 12), 0.012));
+
+        adminPanel.add(adminLabel);
         adminPanel.add(fechaLabel);
 
-
-        topRightPanel.add(sectionPanel, BorderLayout.NORTH);
         topRightPanel.add(adminPanel, BorderLayout.CENTER);
 
-        // Creacion del panel dinamico, se inicializa con la HomeView
-
+        // Panel principal dinámico
         bottomRightPanel = new JPanel();
-        bottomRightPanel.setBackground(Color.white);
+        bottomRightPanel.setBackground(Color.WHITE);
         bottomRightPanel.add(new HomeView());
-        rightPanel = new JPanel();
-        rightPanel.setLayout(new BorderLayout());
+        rightPanel = new JPanel(new BorderLayout());
         rightPanel.add(topRightPanel, BorderLayout.NORTH);
         rightPanel.add(bottomRightPanel, BorderLayout.CENTER);
 
@@ -222,62 +192,35 @@ public class Principal extends JFrame {
         add(rightPanel, BorderLayout.CENTER);
     }
 
-    /* Este metodo recarga el panel derecho con una vista especifica y setea el nombre de la vista
-     En el titulo de la seccion.*/
-
-    private void mostrarVista(JPanel view, String vista) {
-        bottomRightPanel.removeAll();
-        sectionTitle.setText(vista);
-        bottomRightPanel.add(view);
-        bottomRightPanel.revalidate();
-        bottomRightPanel.repaint();
-    }
-
     private JPanel crearBotonConIcono(String texto, String rutaIcono, ActionListener actionListener) {
         JPanel panel = new JPanel(new BorderLayout());
         panel.setBackground(panelColor);
-        panel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 
         ImageIcon icono = new ImageIcon(rutaIcono);
-        Image img = icono.getImage();
-        Image resizedImage = img.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-        icono = new ImageIcon(resizedImage);
-
-        JPanel iconoPanel = new JPanel();
-        iconoPanel.setBackground(buttonColor);
-        iconoPanel.add(new JLabel(icono));
+        JLabel iconoLabel = new JLabel(viewUtils.getScaledIcon(icono.getImage(), 0.019), JLabel.CENTER);
+        iconoLabel.setOpaque(true);
+        iconoLabel.setBackground(panelColor);
 
         JButton button = new JButton(texto);
         button.setFocusPainted(false);
-        button.setBackground(buttonColor);
+        button.setBackground(panelColor);
         button.setForeground(Color.WHITE);
         button.setBorderPainted(false);
         button.setOpaque(true);
-        button.setFont(new Font("Arial", Font.PLAIN, 14));
+        button.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 6), 0.009));
         button.setHorizontalAlignment(SwingConstants.LEFT);
-        button.setPreferredSize(new Dimension(160, 40));
-        button.setMargin(new Insets(0, 0, 0, 0));
         button.addActionListener(actionListener);
 
-        panel.add(iconoPanel, BorderLayout.WEST);
+        panel.add(iconoLabel, BorderLayout.WEST);
         panel.add(button, BorderLayout.CENTER);
 
         return panel;
     }
 
-    private void cargarDatosEjemplo(){
-
-
-        Alumno alumno1 = new Alumno("Juan Pérez", "12345678");
-        Alumno alumno2 = new Alumno("Ana Gómez", "87654321");
-
-
-
-        Materia materia1 = new Materia("Matemáticas", 1,false,false);
-        Materia materia2 = new Materia("Programación", 1,false,false);
-
-        crearMateriaController.setMateria(materia1);
-        crearMateriaController.setMateria(materia2);
-
-    };
+    private void mostrarVista(JPanel view, String vista) {
+        bottomRightPanel.removeAll();
+        bottomRightPanel.add(view);
+        bottomRightPanel.revalidate();
+        bottomRightPanel.repaint();
+    }
 }

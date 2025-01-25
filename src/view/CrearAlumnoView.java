@@ -18,8 +18,10 @@ public class CrearAlumnoView extends JPanel {
 
         // Etiqueta y campo de texto para Nombre
         JLabel labelNombre = new JLabel("Nombre:");
+        labelNombre.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015));
         textNombre = new JTextField();
-        textNombre.setPreferredSize(new Dimension(200, 20)); // Ajustamos el tamaño preferido
+        textNombre.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Ajustamos el tamaño dinámico
+        textNombre.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015)); // Ajustar fuente
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 0; // Fila 0
@@ -33,8 +35,10 @@ public class CrearAlumnoView extends JPanel {
 
         // Etiqueta y campo de texto para DNI
         JLabel labelDni = new JLabel("DNI:");
+        labelDni.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015));
         textDni = new JTextField();
-        textDni.setPreferredSize(new Dimension(200, 20)); // Ajustamos el tamaño preferido
+        textDni.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Ajustamos el tamaño dinámico
+        textDni.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015)); // Ajustar fuente
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 1; // Fila 1
@@ -48,13 +52,16 @@ public class CrearAlumnoView extends JPanel {
 
         // Botón de enviar
         btnEnviar = new JButton("Enviar");
+        btnEnviar.setFont(viewUtils.getScaledFont(new Font("Arial", Font.BOLD, 14), 0.015));
+        btnEnviar.setPreferredSize(viewUtils.getProportionalSize(0.1, 0.04)); // Ajustamos el tamaño dinámico
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 2; // Fila 2
         gbc.gridwidth = 2; // Ocupa dos columnas
         gbc.fill = GridBagConstraints.NONE; // No expandir el botón
         gbc.anchor = GridBagConstraints.CENTER; // Centrar el botón
-        gbc.weighty = 0; // No necesita expandirse
+        gbc.weightx = 0;
+        gbc.weighty = 0;
         add(btnEnviar, gbc);
     }
 

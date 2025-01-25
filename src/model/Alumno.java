@@ -30,6 +30,8 @@ public class Alumno {
         materiasAprobadas.add(aprobadas);
     }
 
+    // public void finalizoCarrera()
+
 
     @Override
     public String toString() {

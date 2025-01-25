@@ -8,14 +8,17 @@ public class CrearCarreraView extends JPanel {
     public CrearCarreraView() {
         setBackground(Color.WHITE);
         setLayout(new GridBagLayout()); // Usamos GridBagLayout para mayor control
+        Font generalFont = viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL; // Para que los componentes se ajusten horizontalmente
         gbc.insets = new Insets(10, 10, 10, 10); // Margen entre componentes
 
         // Etiqueta y campo de texto para Nombre
         JLabel labelNombre = new JLabel("Nombre:");
+        labelNombre.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015));
         JTextField textNombre = new JTextField();
-        textNombre.setPreferredSize(new Dimension(200, 20));
+        textNombre.setFont(generalFont);
+        textNombre.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05));
 
         gbc.gridx = 0; // Columna 0
         gbc.gridy = 0; // Fila 0
@@ -29,8 +32,9 @@ public class CrearCarreraView extends JPanel {
 
         // Etiqueta y JComboBox para Tipo de plan
         JLabel labelTipo = new JLabel("Asignar Plan:");
+        labelTipo.setFont(viewUtils.getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015));
         JComboBox comboTipo = new JComboBox();
-        comboTipo.setPreferredSize(new Dimension(100,20));
+        comboTipo.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05));
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -45,6 +49,8 @@ public class CrearCarreraView extends JPanel {
 
         // Botón de enviar
         JButton btnEnviar = new JButton("Enviar");
+        btnEnviar.setFont(viewUtils.getScaledFont(new Font("Arial", Font.BOLD, 14), 0.015));
+        btnEnviar.setPreferredSize(viewUtils.getProportionalSize(0.1, 0.04)); // Ajustamos el tamaño dinámico
 
         gbc.gridx = 0;
         gbc.gridy = 3;

@@ -11,8 +11,7 @@ public class VerEstadoController {
     private CrearAlumnoController crearAlumnoController;
     private VerEstadoView verEstadoView;
 
-    public VerEstadoController(VerEstadoView verEstadoView,CrearAlumnoController crearAlumnoController) {
-
+    public VerEstadoController(VerEstadoView verEstadoView, CrearAlumnoController crearAlumnoController) {
         this.verEstadoView = verEstadoView;
         this.crearAlumnoController = crearAlumnoController;
 
@@ -23,7 +22,7 @@ public class VerEstadoController {
         verEstadoView.getBtnEnviar().addActionListener(e -> mostrarInformacionAlumno());
     }
 
-    private void cargarListaAlumnos() {
+    public void cargarListaAlumnos() {
         List<Alumno> listaAlumnos = crearAlumnoController.getListaAlumnos();
         JComboBox<Alumno> comboAlumno = verEstadoView.getComboAlumno();
         comboAlumno.removeAllItems(); // Limpiar cualquier ítem previo

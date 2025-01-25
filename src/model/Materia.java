@@ -30,6 +30,8 @@ public class Materia {
 
     // Aca hay que implementar un metodo para verificar si el alumno aprobo el final (nota >= 4 && aproboCursada = true)
 
+
+
     public String getNombre() {
         return nombre;
     }

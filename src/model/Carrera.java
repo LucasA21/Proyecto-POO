@@ -9,6 +9,8 @@ public class Carrera {
         this.nombre = nombre;
         this.planEstudio = planEstudio;
     }
+
+    // faltan metodos para verificiar si el alumno cumplio con las materias obligatorias y optativas
 }
 
 
