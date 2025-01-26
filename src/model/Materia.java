@@ -40,9 +40,12 @@ public class Materia {
         return correlativas;
     }
 
-    public void agregarCorrelativas(Materia correlativa){
-        correlativas.add(correlativa);
+    public void agregarCorrelativas(Materia correlativa) {
+        if (!correlativas.contains(correlativa)) {
+            correlativas.add(correlativa);
+        }
     }
+
 }
 
 
