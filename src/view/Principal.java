@@ -103,7 +103,7 @@ public class Principal extends JFrame {
         gbcButtons.gridx = 0;
         gbcButtons.gridy = GridBagConstraints.RELATIVE;
         gbcButtons.fill = GridBagConstraints.HORIZONTAL;
-        gbcButtons.insets = new Insets(35, 0, 35, 0); // Espaciado entre botones
+        gbcButtons.insets = new Insets(30, 0, 30, 0); // Espaciado entre botones
 
         // Crear botones, aca se vincula los botones con sus respectivos controllers
 
