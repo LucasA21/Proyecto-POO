@@ -5,10 +5,10 @@
 
     public class PlanEstudio {
         private String nombre;
-        private TipoPLan tipoPlan;
+        private TipoPlan tipoPlan;
         private List<Materia> materias;
 
-        public PlanEstudio(String nombre, TipoPLan tipoPlan){
+        public PlanEstudio(String nombre, TipoPlan tipoPlan){
             this.nombre = nombre;
             this.tipoPlan = tipoPlan;
             this.materias = new ArrayList<>();
@@ -18,7 +18,7 @@
             return nombre;
         }
 
-        public TipoPLan getTipoPlan() {
+        public TipoPlan getTipoPlan() {
             return tipoPlan;
         }
 
@@ -30,6 +30,14 @@
             materias.add(materia);
         }
 
-        // verificar si el alumno puede inscribirse a una materia segun el plan
+        public boolean puedeCursar(Materia materia, Alumno alumno){
+            return  tipoPlan.getEstrategia().puedeCursar(materia,alumno);
+        }
+
+        @Override
+        public String toString() {
+            return nombre;
+        }
+
 
     }

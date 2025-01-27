@@ -1,9 +1,6 @@
 package controller;
 
-import model.Materia;
-import model.MateriaListener;
-import model.PlanEstudio;
-import model.TipoPLan;
+import model.*;
 import view.CrearPlanView;
 
 import javax.swing.*;
@@ -15,6 +12,7 @@ import java.util.List;
 public class CrearPlanEstudioController implements MateriaListener{
         private  List<PlanEstudio> listaPlanes;
         private  CrearMateriaController crearMateriaController;
+        private List<PlanEstudioListener> listeners; // Lista de listeners
         private  CrearPlanView view;
 
 
@@ -22,6 +20,7 @@ public class CrearPlanEstudioController implements MateriaListener{
                 this.view = view;
                 this.listaPlanes = new ArrayList<>();
                 this.crearMateriaController = crearMateriaController;
+                this.listeners = new ArrayList<>();
 
                 crearMateriaController.addMateriaListener(this);
                 actualizarMateriasDisponibles();
@@ -46,14 +45,14 @@ public class CrearPlanEstudioController implements MateriaListener{
 
         public void crearPlan(){
                 String nombre = view.getTextNombre();
-                TipoPLan tipoPLan = view.getTipoPlan();
+                TipoPlan tipoPlan = view.getTipoPlan();
 
                 if (nombre.isEmpty()){
                         JOptionPane.showMessageDialog(null,"El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                 }
 
-                PlanEstudio planEstudio = new PlanEstudio(nombre,tipoPLan);
+                PlanEstudio planEstudio = new PlanEstudio(nombre,tipoPlan);
 
                 List<Materia> materiasSeleccionadas = new ArrayList<>();
                 for (JCheckBox checkBox: view.getCheckboxMaterias()){
@@ -70,6 +69,10 @@ public class CrearPlanEstudioController implements MateriaListener{
                 }
 
                 listaPlanes.add(planEstudio);
+
+                for (PlanEstudioListener listener : listeners) {
+                        listener.planEstudioCreado(planEstudio);
+                }
 
                 view.limpiarCampos();
 
@@ -89,4 +92,11 @@ public class CrearPlanEstudioController implements MateriaListener{
                 return null;
         }
 
+        public void addPlanEstudioListener(PlanEstudioListener listener) {
+                listeners.add(listener);
+        }
+
+        public List<PlanEstudio> getListaPlanes() {
+                return listaPlanes;
+        }
 }

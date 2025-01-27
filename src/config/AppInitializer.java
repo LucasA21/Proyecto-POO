@@ -1,9 +1,6 @@
 package config;
 
-import controller.CrearAlumnoController;
-import controller.CrearMateriaController;
-import controller.CrearPlanEstudioController;
-import controller.VerEstadoController;
+import controller.*;
 import model.Alumno;
 import model.Materia;
 import view.*;
@@ -27,6 +24,8 @@ public class AppInitializer {
         VerEstadoController verEstadoController = new VerEstadoController(verEstadoView, crearAlumnoController);
         CrearMateriaController crearMateriaController = new CrearMateriaController(crearMateriaView);
         CrearPlanEstudioController crearPlanEstudioController = new CrearPlanEstudioController(crearPlanView, crearMateriaController);
+        CrearCarreraController crearCarreraController = new CrearCarreraController(crearCarreraView, crearPlanEstudioController);
+
 
         // Conectar controladores
         crearAlumnoController.setVerEstadoController(verEstadoController);
@@ -47,10 +46,14 @@ public class AppInitializer {
         Materia materia1 = new Materia("Algebra",1,true,false);
         Materia materia2 = new Materia("Elementos de informatica",1,true,true);
         Materia materia3 = new Materia("Expresión de Problemas y Algoritmos",1,true,true);
+        Materia materia4 = new Materia("Ingles",1,false,true);
+        Materia materia5 = new Materia("Seminario 1",1,false,true);
 
         crearMateriaController.setMateria(materia1);
         crearMateriaController.setMateria(materia2);
         crearMateriaController.setMateria(materia3);
+        crearMateriaController.setMateria(materia4);
+        crearMateriaController.setMateria(materia5);
 
         crearMateriaView.actualizarCorrelativas(crearMateriaController.getListaMaterias());
         crearPlanView.actualizarMaterias(crearMateriaController.getListaMaterias());
@@ -74,7 +77,8 @@ public class AppInitializer {
                 crearAlumnoController,
                 verEstadoController,
                 crearMateriaController,
-                crearPlanEstudioController
+                crearPlanEstudioController,
+                crearCarreraController
         );
     }
 }

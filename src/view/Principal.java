@@ -1,9 +1,6 @@
 package view;
 
-import controller.CrearAlumnoController;
-import controller.CrearMateriaController;
-import controller.CrearPlanEstudioController;
-import controller.VerEstadoController;
+import controller.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,7 +33,8 @@ public class Principal extends JFrame {
             CrearAlumnoController crearAlumnoController,
             VerEstadoController verEstadoController,
             CrearMateriaController crearMateriaController,
-            CrearPlanEstudioController crearPlanEstudioController
+            CrearPlanEstudioController crearPlanEstudioController,
+            CrearCarreraController crearCarreraController
     ) {
         // Configurar ventana principal
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -131,11 +129,15 @@ public class Principal extends JFrame {
         JPanel buttonPanel = new JPanel(new GridBagLayout());
         buttonPanel.setBackground(panelColor);
 
+        // Calcular espaciado dinámico basado en el tamaño de la ventana
+        int panelHeight = getHeight();
+        int dynamicSpacing = (int) (panelHeight * 0.026);
+
         GridBagConstraints gbcButtons = new GridBagConstraints();
         gbcButtons.gridx = 0;
         gbcButtons.gridy = GridBagConstraints.RELATIVE;
         gbcButtons.fill = GridBagConstraints.HORIZONTAL;
-        gbcButtons.insets = new Insets(30, 0, 30, 0);
+        gbcButtons.insets = new Insets(dynamicSpacing, 0, dynamicSpacing, 0);
 
         buttonPanel.add(crearBotonConIcono("Inicio", "assets/icons/home.png", e -> mostrarVista(homeView)), gbcButtons);
         buttonPanel.add(crearBotonConIcono("Crear Alumno", "assets/icons/user.png", e -> mostrarVista(crearAlumnoView)), gbcButtons);
@@ -149,6 +151,7 @@ public class Principal extends JFrame {
 
         return buttonPanel;
     }
+
 
     private JPanel crearBotonConIcono(String texto, String rutaIcono, ActionListener actionListener) {
         JPanel panel = new JPanel(new BorderLayout());

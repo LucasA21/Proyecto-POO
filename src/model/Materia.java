@@ -36,6 +36,10 @@ public class Materia {
         return nombre;
     }
 
+    public boolean esObligatoria(){return esObligatoria;}
+
+    public Integer getCuatrimestre() {return  cuatrimestre;}
+
     public List<Materia> getCorrelativas() {
         return correlativas;
     }
