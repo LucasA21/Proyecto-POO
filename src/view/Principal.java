@@ -34,7 +34,8 @@ public class Principal extends JFrame {
             VerEstadoController verEstadoController,
             CrearMateriaController crearMateriaController,
             CrearPlanEstudioController crearPlanEstudioController,
-            CrearCarreraController crearCarreraController
+            CrearCarreraController crearCarreraController,
+            InscribirAlumnoController inscribirAlumnoController
     ) {
         // Configurar ventana principal
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -131,7 +132,7 @@ public class Principal extends JFrame {
 
         // Calcular espaciado dinámico basado en el tamaño de la ventana
         int panelHeight = getHeight();
-        int dynamicSpacing = (int) (panelHeight * 0.026);
+        int dynamicSpacing = (int) (panelHeight * 0.025);
 
         GridBagConstraints gbcButtons = new GridBagConstraints();
         gbcButtons.gridx = 0;

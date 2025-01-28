@@ -53,4 +53,9 @@ public class Carrera {
     public void setCantidadOptativasRequeridas(int cantidadOptativasRequeridas) {
         this.cantidadOptativasRequeridas = cantidadOptativasRequeridas;
     }
+    @Override
+    public String toString() {
+        return nombre;
+    }
+
 }

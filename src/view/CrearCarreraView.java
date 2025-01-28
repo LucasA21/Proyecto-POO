@@ -1,5 +1,6 @@
 package view;
 
+import model.Carrera;
 import model.Materia;
 import model.PlanEstudio;
 
@@ -206,4 +207,14 @@ public class CrearCarreraView extends JPanel {
         }
         return checkboxes;
     }
+
+    public void actualizarPlanes(List<PlanEstudio> planesDisponibles) {
+        comboPlanes.removeAllItems(); // Limpia los elementos anteriores
+        for (PlanEstudio plan : planesDisponibles) {
+            comboPlanes.addItem(plan); // Agrega los planes de estudio disponibles
+        }
+    }
+
+
+
 }

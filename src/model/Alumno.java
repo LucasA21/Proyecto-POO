@@ -56,7 +56,7 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return String.valueOf(this.dni); // Devuelve solo el DNI del alumno
+        return this.nombre;
     }
 
 }

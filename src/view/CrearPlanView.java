@@ -1,6 +1,7 @@
 package view;
 
 import model.Materia;
+import model.PlanEstudio;
 import model.TipoPlan;
 
 import javax.swing.*;
@@ -141,6 +142,7 @@ public class CrearPlanView extends JPanel {
         return btnEnviar;
     }
 
+
     public void limpiarCampos() {
         textNombre.setText("");
         comboTipo.setSelectedIndex(0);
@@ -151,4 +153,9 @@ public class CrearPlanView extends JPanel {
             }
         }
     }
+
+
+
+
+
 }

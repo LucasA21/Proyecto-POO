@@ -1,9 +1,6 @@
 package controller;
 
-import model.Carrera;
-import model.Materia;
-import model.PlanEstudio;
-import model.PlanEstudioListener;
+import model.*;
 import view.CrearCarreraView;
 
 import javax.swing.*;
@@ -17,17 +14,17 @@ public class CrearCarreraController implements PlanEstudioListener {
     private CrearCarreraView view;
     private List<Carrera> listaCarreras;
     private List<PlanEstudio> listaPlanesEstudio;
+    private List<CarreraListener> listeners;
+    private InscribirAlumnoController inscribirAlumnoController;
 
     public CrearCarreraController(CrearCarreraView view, CrearPlanEstudioController crearPlanEstudioController) {
         this.view = view;
         this.listaCarreras = new ArrayList<>();
         this.listaPlanesEstudio = crearPlanEstudioController.getListaPlanes();
+        this.listeners = new ArrayList<>();
 
         // Registrar como listener de planes de estudio
         crearPlanEstudioController.addPlanEstudioListener(this);
-
-        // Actualizar el combo con los planes disponibles
-        actualizarComboPlanes();
 
         // Agregar listener al combo para actualizar materias al seleccionar un plan
         this.view.getComboTipo().addActionListener(new ActionListener() {
@@ -52,6 +49,8 @@ public class CrearCarreraController implements PlanEstudioListener {
         for (PlanEstudio plan : listaPlanesEstudio) {
             comboPlanes.addItem(plan); // Agrega solo una vez cada plan
         }
+
+        view.actualizarPlanes(listaPlanesEstudio);
     }
 
     private void actualizarMaterias(PlanEstudio planSeleccionado) {
@@ -108,6 +107,12 @@ public class CrearCarreraController implements PlanEstudioListener {
         }
 
         listaCarreras.add(nuevaCarrera);
+
+
+        for (CarreraListener listener : listeners) {
+            listener.carreraAgregada(nuevaCarrera);
+        }
+
         view.limpiarCampos();
 
         JOptionPane.showMessageDialog(null, "Carrera creada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
@@ -129,4 +134,17 @@ public class CrearCarreraController implements PlanEstudioListener {
         }
         actualizarComboPlanes();
     }
+
+    public void addCarreraListener(CarreraListener listener) {
+        listeners.add(listener);
+    }
+
+    public List<Carrera> getListaCarreras() {
+        return listaCarreras;
+    }
+
+    public void setInscribirAlumnoController(InscribirAlumnoController inscribirAlumnoController) {
+        this.inscribirAlumnoController = inscribirAlumnoController;
+    }
+
 }
