@@ -36,13 +36,20 @@ public class Materia {
         return nombre;
     }
 
+    public boolean esObligatoria(){return esObligatoria;}
+
+    public Integer getCuatrimestre() {return  cuatrimestre;}
+
     public List<Materia> getCorrelativas() {
         return correlativas;
     }
 
-    public void agregarCorrelativas(Materia correlativa){
-        correlativas.add(correlativa);
+    public void agregarCorrelativas(Materia correlativa) {
+        if (!correlativas.contains(correlativa)) {
+            correlativas.add(correlativa);
+        }
     }
+
 }
 
 

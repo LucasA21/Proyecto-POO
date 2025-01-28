@@ -120,9 +120,9 @@ public class CrearMateriaView extends JPanel {
 
         // Opcional: Crear un ícono personalizado para agrandar el tamaño del checkbox
         Icon emptyIcon = new ImageIcon(new ImageIcon("assets/icons/checkbox_empty.png")
-                .getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                .getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         Icon filledIcon = new ImageIcon(new ImageIcon("assets/icons/checkbox_filled.png")
-                .getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH));
+                .getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 
         checkBox.setIcon(emptyIcon);
         checkBox.setSelectedIcon(filledIcon);

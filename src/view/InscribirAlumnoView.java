@@ -1,9 +1,16 @@
 package view;
 
+import model.Alumno;
+import model.Carrera;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class InscribirAlumnoView extends JPanel {
+
+    private JComboBox<Alumno> comboAlumno;
+    private JComboBox<Carrera> comboCarrera;
+    private JButton btnEnviar;
 
     public InscribirAlumnoView() {
         setBackground(Color.WHITE);
@@ -18,7 +25,7 @@ public class InscribirAlumnoView extends JPanel {
         // Etiqueta y combo box para Alumno
         JLabel labelAlumno = new JLabel("Alumno:");
         labelAlumno.setFont(generalFont);
-        JComboBox<String> comboAlumno = new JComboBox<>();
+        comboAlumno = new JComboBox<>();
         comboAlumno.setFont(generalFont);
         comboAlumno.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Tamaño dinámico
 
@@ -35,7 +42,7 @@ public class InscribirAlumnoView extends JPanel {
         // Etiqueta y combo box para Carrera
         JLabel labelCarrera = new JLabel("Carrera:");
         labelCarrera.setFont(generalFont);
-        JComboBox<String> comboCarrera = new JComboBox<>();
+        comboCarrera = new JComboBox<>(); // Asignar a la variable de instancia
         comboCarrera.setFont(generalFont);
         comboCarrera.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Tamaño dinámico
 
@@ -50,7 +57,7 @@ public class InscribirAlumnoView extends JPanel {
         add(comboCarrera, gbc);
 
         // Botón de enviar
-        JButton btnEnviar = new JButton("Enviar");
+        btnEnviar = new JButton("Enviar");
         btnEnviar.setFont(viewUtils.getScaledFont(new Font("Arial", Font.BOLD, 14), 0.015));
         btnEnviar.setPreferredSize(viewUtils.getProportionalSize(0.1, 0.04)); // Tamaño dinámico
 
@@ -63,4 +70,20 @@ public class InscribirAlumnoView extends JPanel {
         gbc.weighty = 0;
         add(btnEnviar, gbc);
     }
+
+    // Métodos adicionales en InscribirAlumnoView
+
+    public JComboBox<Alumno> getComboAlumno() {
+        return comboAlumno; // Devuelve el combo box de alumnos
+    }
+
+    public JComboBox<Carrera> getComboCarrera() {
+        return comboCarrera; // Devuelve el combo box de carreras
+    }
+
+    public JButton getBtnEnviar() {
+        return btnEnviar; // Devuelve el botón de enviar
+    }
+
+
 }
