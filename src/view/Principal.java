@@ -35,7 +35,8 @@ public class Principal extends JFrame {
             CrearMateriaController crearMateriaController,
             CrearPlanEstudioController crearPlanEstudioController,
             CrearCarreraController crearCarreraController,
-            InscribirAlumnoController inscribirAlumnoController
+            InscribirAlumnoController inscribirAlumnoController,
+            InscribirMateriaController inscribirMateriaController
     ) {
         // Configurar ventana principal
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

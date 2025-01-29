@@ -80,6 +80,8 @@ public class InscribirAlumnoController implements AlumnoListener, CarreraListene
         InscripcionCarrera nuevaInscripcion = new InscripcionCarrera(alumnoSeleccionado, carreraSeleccionada);
         listaInscripciones.add(nuevaInscripcion);
 
+        alumnoSeleccionado.setCarrera(carreraSeleccionada);
+
         JOptionPane.showMessageDialog(null, "Inscripción realizada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 

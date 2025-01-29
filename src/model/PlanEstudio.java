@@ -34,6 +34,17 @@
             return  tipoPlan.getEstrategia().puedeCursar(materia,alumno);
         }
 
+        public List<Materia> getMateriasDisponiblesParaAlumno(Alumno alumno) {
+            List<Materia> disponibles = new ArrayList<>();
+            for (Materia materia : materias) {
+                if (tipoPlan.getEstrategia().puedeCursar(materia, alumno)) {
+                    disponibles.add(materia);
+                }
+            }
+            return disponibles;
+        }
+
+
         @Override
         public String toString() {
             return nombre;

@@ -1,9 +1,16 @@
 package view;
 
+import model.Alumno;
+import model.Materia;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class InscribirMateriaView extends JPanel {
+    private JComboBox<Alumno> comboAlumno;
+    private JComboBox<Materia> comboMateria;
+    private JButton btnEnviar;
 
     public InscribirMateriaView() {
         setBackground(Color.WHITE);
@@ -18,7 +25,7 @@ public class InscribirMateriaView extends JPanel {
         // Etiqueta y combo box para Alumno
         JLabel labelAlumno = new JLabel("Alumno:");
         labelAlumno.setFont(generalFont);
-        JComboBox<String> comboAlumno = new JComboBox<>();
+        comboAlumno = new JComboBox<>();
         comboAlumno.setFont(generalFont);
         comboAlumno.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Tamaño dinámico
 
@@ -35,7 +42,7 @@ public class InscribirMateriaView extends JPanel {
         // Etiqueta y combo box para Materia
         JLabel labelMateria = new JLabel("Materia:");
         labelMateria.setFont(generalFont);
-        JComboBox<String> comboMateria = new JComboBox<>();
+        comboMateria = new JComboBox<>();
         comboMateria.setFont(generalFont);
         comboMateria.setPreferredSize(viewUtils.getProportionalSize(0.3, 0.05)); // Tamaño dinámico
 
@@ -50,7 +57,7 @@ public class InscribirMateriaView extends JPanel {
         add(comboMateria, gbc);
 
         // Botón de enviar
-        JButton btnEnviar = new JButton("Enviar");
+        btnEnviar = new JButton("Enviar");
         btnEnviar.setFont(viewUtils.getScaledFont(new Font("Arial", Font.BOLD, 14), 0.015));
         btnEnviar.setPreferredSize(viewUtils.getProportionalSize(0.1, 0.04)); // Tamaño dinámico
 
@@ -62,5 +69,33 @@ public class InscribirMateriaView extends JPanel {
         gbc.weightx = 0;
         gbc.weighty = 0;
         add(btnEnviar, gbc);
+    }
+
+    // Getters
+    public JComboBox<Alumno> getComboAlumno() {
+        return comboAlumno;
+    }
+
+    public JComboBox<Materia> getComboMateria() {
+        return comboMateria;
+    }
+
+    public JButton getBtnEnviar() {
+        return btnEnviar;
+    }
+
+    // Métodos para actualizar los datos del ComboBox
+    public void actualizarAlumnos(Alumno[] alumnos) {
+        comboAlumno.removeAllItems();
+        for (Alumno alumno : alumnos) {
+            comboAlumno.addItem(alumno);
+        }
+    }
+
+    public void actualizarMaterias(List<Materia> materias) {
+        comboMateria.removeAllItems(); // Limpia el combo box
+        for (Materia materia : materias) {
+            comboMateria.addItem(materia); // Agrega los objetos Materia directamente
+        }
     }
 }

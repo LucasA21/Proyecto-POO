@@ -6,7 +6,6 @@ import view.CrearAlumnoView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,29 +14,53 @@ public class CrearAlumnoController {
     private List<Alumno> listaAlumnos;
     private List<AlumnoListener> listeners;
     private VerEstadoController verEstadoController;
-    private  InscribirAlumnoController inscribirAlumnoController;
+    private InscribirAlumnoController inscribirAlumnoController;
+    private InscribirMateriaController inscribirMateriaController;
 
     public CrearAlumnoController(CrearAlumnoView view) {
         this.view = view;
         this.listaAlumnos = new ArrayList<>();
         this.listeners = new ArrayList<>();
 
-
-        view.getBtnEnviar().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                crearAlumno();
-            }
-        });
+        view.getBtnEnviar().addActionListener((ActionEvent e) -> crearAlumno());
     }
 
     public void setVerEstadoController(VerEstadoController verEstadoController) {
-        this.verEstadoController = verEstadoController; // Configurar el controlador de VerEstado
+        this.verEstadoController = verEstadoController;
+    }
+
+    public void setInscribirAlumnoController(InscribirAlumnoController inscribirAlumnoController) {
+        this.inscribirAlumnoController = inscribirAlumnoController;
+    }
+
+    public void  setInscribirMateriaController(InscribirMateriaController inscribirMateriaController){
+        this.inscribirMateriaController = inscribirMateriaController;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        listaAlumnos.add(alumno);
+    }
+
+    public void addAlumnoListener(AlumnoListener listener) {
+        if (!listeners.contains(listener)) {
+            listeners.add(listener);
+            System.out.println("Listener registrado: " + listener.getClass().getSimpleName());
+        }
+    }
+
+
+    public List<Alumno> getListaAlumnos() {
+        return listaAlumnos;
     }
 
     private void crearAlumno() {
         String dni = view.getTextDni();
         String nombre = view.getTextNombre();
+
+        if (dni.isEmpty() || nombre.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         Alumno nuevoAlumno = new Alumno(dni, nombre);
         listaAlumnos.add(nuevoAlumno);
@@ -47,33 +70,18 @@ public class CrearAlumnoController {
             listener.alumnoAgregado(nuevoAlumno);
         }
 
-        // Notificar al controlador de VerEstado para actualizar la lista
+        // Actualizar vistas conectadas
         if (verEstadoController != null) {
             verEstadoController.cargarListaAlumnos();
         }
-
         if (inscribirAlumnoController != null) {
             inscribirAlumnoController.actualizarComboAlumnos();
         }
+        if (inscribirMateriaController != null){
+            inscribirMateriaController.actualizarComboAlumnos();
+        }
 
         view.limpiarCampos();
-
         JOptionPane.showMessageDialog(null, "Alumno creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public void setAlumno(Alumno alumno) {
-        listaAlumnos.add(alumno);
-    }
-
-    public void addAlumnoListener(AlumnoListener listener) {
-        listeners.add(listener);
-    }
-
-    public void setInscribirAlumnoController(InscribirAlumnoController inscribirAlumnoController) {
-        this.inscribirAlumnoController = inscribirAlumnoController;
-    }
-
-    public List<Alumno> getListaAlumnos() {
-        return listaAlumnos;
     }
 }

@@ -49,7 +49,6 @@ public class Materia {
             correlativas.add(correlativa);
         }
     }
-
 }
 
 

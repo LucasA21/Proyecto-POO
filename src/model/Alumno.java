@@ -6,20 +6,16 @@ import java.util.List;
 public class Alumno {
     private String dni;
     private String nombre;
-    private List<Materia> materiasAprobadas;
-    private List<Materia> finalesAprobados;
     private Carrera carrera;
-
+    private List<AlumnoMateria> historialAcademico;
 
     public Alumno(String dni, String nombre) {
         this.dni = dni;
         this.nombre = nombre;
-        this.materiasAprobadas = new ArrayList<>();
-        this.finalesAprobados = new ArrayList<>();
-        this.carrera = carrera;
+        this.historialAcademico = new ArrayList<>();
     }
 
-
+    // Getters básicos
     public String getNombre() {
         return nombre;
     }
@@ -32,31 +28,60 @@ public class Alumno {
         return carrera;
     }
 
-    public List<Materia> getMateriasAprobadas() {
-        return materiasAprobadas;
-    }
-
-    public List<Materia> getFinalesAprobados(){
-        return finalesAprobados;
-    }
-
     public void setCarrera(Carrera carrera) {
         this.carrera = carrera;
     }
 
-    public void agregarMateria(Materia aprobadas){
-        materiasAprobadas.add(aprobadas);
+    // Métodos relacionados con el historial académico
+    public void agregarMateria(Materia materia) {
+        historialAcademico.add(new AlumnoMateria(materia));
     }
 
-    public void agregarFinales(Materia finales) {finalesAprobados.add(finales);}
+    public AlumnoMateria getAlumnoMateria(Materia materia) {
+        for (AlumnoMateria am : historialAcademico) {
+            if (am.getMateria().equals(materia)) {
+                return am;
+            }
+        }
+        return null; // Si no encuentra la relación
+    }
 
+    public List<Materia> getMateriasAprobadas() {
+        List<Materia> aprobadas = new ArrayList<>();
+        for (AlumnoMateria am : historialAcademico) {
+            if (am.isAproboCursada()) {
+                aprobadas.add(am.getMateria());
+            }
+        }
+        return aprobadas;
+    }
 
-    // public void finalizoCarrera()
+    public List<Materia> getFinalesAprobados() {
+        List<Materia> finales = new ArrayList<>();
+        for (AlumnoMateria am : historialAcademico) {
+            if (am.isAproboFinal()) {
+                finales.add(am.getMateria());
+            }
+        }
+        return finales;
+    }
+
+    private AlumnoMateria buscarAlumnoMateria(Materia materia) {
+        for (AlumnoMateria alumnoMateria : historialAcademico) {
+            if (alumnoMateria.getMateria().equals(materia)) {
+                return alumnoMateria;
+            }
+        }
+        return null;
+    }
+
+    public List<AlumnoMateria> getHistorialAcademico() {
+        return historialAcademico;
+    }
 
 
     @Override
     public String toString() {
-        return this.nombre;
+        return nombre;
     }
-
 }
