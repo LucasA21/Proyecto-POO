@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import view.CrearPlanView;
+import view.viewUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -40,7 +41,7 @@ public class CrearPlanEstudioController implements MateriaListener{
 
         @Override
         public void materiaAgregada(Materia materia) {
-                actualizarMateriasDisponibles();  // Actualiza la lista de materias disponibles
+                actualizarMateriasDisponibles();
         }
 
         public void crearPlan(){
@@ -48,7 +49,7 @@ public class CrearPlanEstudioController implements MateriaListener{
                 TipoPlan tipoPlan = view.getTipoPlan();
 
                 if (nombre.isEmpty()){
-                        JOptionPane.showMessageDialog(null,"El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
+                        viewUtils.showScaledMessageDialog(null,"El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                 }
 
@@ -78,7 +79,8 @@ public class CrearPlanEstudioController implements MateriaListener{
 
                 actualizarMateriasDisponibles();
 
-                JOptionPane.showMessageDialog(null, "Plan creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                viewUtils.showScaledMessageDialog(null, "Plan creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                view.resetCombos();
 
         }
 

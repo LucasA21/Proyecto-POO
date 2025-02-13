@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import view.CrearCarreraView;
+import view.viewUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -26,7 +27,6 @@ public class CrearCarreraController implements PlanEstudioListener {
         // Registrar como listener de planes de estudio
         crearPlanEstudioController.addPlanEstudioListener(this);
 
-        // Agregar listener al combo para actualizar materias al seleccionar un plan
         this.view.getComboTipo().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,24 +37,21 @@ public class CrearCarreraController implements PlanEstudioListener {
             }
         });
 
-        // Botón para crear carrera
         this.view.getBtnEnviar().addActionListener((ActionEvent e) -> crearCarrera());
     }
 
     private void actualizarComboPlanes() {
         JComboBox<PlanEstudio> comboPlanes = view.getComboTipo();
-        comboPlanes.removeAllItems(); // Limpia los elementos previos en el combo box
+        comboPlanes.removeAllItems();
 
-        // Añadir planes de estudio evitando duplicados
         for (PlanEstudio plan : listaPlanesEstudio) {
-            comboPlanes.addItem(plan); // Agrega solo una vez cada plan
+            comboPlanes.addItem(plan);
         }
 
         view.actualizarPlanes(listaPlanesEstudio);
     }
 
     private void actualizarMaterias(PlanEstudio planSeleccionado) {
-        // Filtrar las materias del plan en obligatorias y optativas usando el booleano esObligatoria
         List<Materia> materiasObligatorias = new ArrayList<>();
         List<Materia> materiasOptativas = new ArrayList<>();
 
@@ -66,7 +63,6 @@ public class CrearCarreraController implements PlanEstudioListener {
             }
         }
 
-        // Actualizar la vista con las materias separadas
         view.actualizarMaterias(materiasObligatorias, materiasOptativas);
     }
 
@@ -74,13 +70,13 @@ public class CrearCarreraController implements PlanEstudioListener {
         String nombreCarrera = view.getTextNombre().getText();
 
         if (nombreCarrera.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El nombre de la carrera no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "El nombre de la carrera no puede estar vacío", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         PlanEstudio planSeleccionado = (PlanEstudio) view.getComboTipo().getSelectedItem();
         if (planSeleccionado == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un plan de estudio", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "Debe seleccionar un plan de estudio", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -115,7 +111,8 @@ public class CrearCarreraController implements PlanEstudioListener {
 
         view.limpiarCampos();
 
-        JOptionPane.showMessageDialog(null, "Carrera creada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        viewUtils.showScaledMessageDialog(null, "Carrera creada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        view.resetCombos();
     }
 
     private Materia buscarMateria(List<Materia> materias, String nombreMateria) {
@@ -124,12 +121,12 @@ public class CrearCarreraController implements PlanEstudioListener {
                 return materia;
             }
         }
-        return null; // Retorna null si no encuentra la materia
+        return null;
     }
 
     @Override
     public void planEstudioCreado(PlanEstudio planEstudio) {
-        if (!listaPlanesEstudio.contains(planEstudio)) { // Evita duplicados
+        if (!listaPlanesEstudio.contains(planEstudio)) {
             listaPlanesEstudio.add(planEstudio);
         }
         actualizarComboPlanes();

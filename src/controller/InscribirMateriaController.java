@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import view.InscribirMateriaView;
+import view.viewUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -19,32 +20,40 @@ public class InscribirMateriaController implements AlumnoListener, MateriaListen
         this.listaAlumnos = crearAlumnoController.getListaAlumnos();
         this.materiasDisponibles = crearMateriaController.getListaMaterias();
 
-        // Registrar listeners
         crearAlumnoController.addAlumnoListener(this);
         crearMateriaController.addMateriaListener(this);
 
-        // Actualizar combos al iniciar
+
         actualizarComboAlumnos();
         actualizarComboMaterias();
 
-        // Configurar botón de enviar
         this.view.getBtnEnviar().addActionListener((ActionEvent e) -> inscribirMateria());
 
-        // Listener para actualizar materias al seleccionar un alumno
         this.view.getComboAlumno().addActionListener((ActionEvent e) -> actualizarMateriasParaAlumnoSeleccionado());
     }
 
     public void actualizarComboAlumnos() {
         JComboBox<Alumno> comboAlumno = view.getComboAlumno();
-        comboAlumno.removeAllItems(); // Limpia el combo box
+        comboAlumno.removeAllItems();
         for (Alumno alumno : listaAlumnos) {
-            comboAlumno.addItem(alumno); // Agrega los objetos Alumno directamente
+            comboAlumno.addItem(alumno);
+        }
+    }
+
+    public void actualizarComboMaterias() {
+        JComboBox<Materia> comboMateria = view.getComboMateria();
+        comboMateria.removeAllItems();
+
+        for (Materia materia : materiasDisponibles) {
+            comboMateria.addItem(materia);
         }
     }
 
 
+
     private void actualizarMateriasParaAlumnoSeleccionado() {
         int indiceSeleccionado = view.getComboAlumno().getSelectedIndex();
+
         if (indiceSeleccionado < 0 || indiceSeleccionado >= listaAlumnos.size()) {
             return;
         }
@@ -53,8 +62,11 @@ public class InscribirMateriaController implements AlumnoListener, MateriaListen
 
         if (alumnoSeleccionado.getCarrera() != null) {
             PlanEstudio planEstudio = alumnoSeleccionado.getCarrera().getPlanEstudio();
+
             if (planEstudio != null) {
-                materiasDisponibles = planEstudio.getMateriasDisponiblesParaAlumno(alumnoSeleccionado);
+                List<Materia> materias = planEstudio.getMateriasDisponiblesParaAlumno(alumnoSeleccionado);
+
+                materiasDisponibles = new ArrayList<>(materias);
             } else {
                 System.err.println("El alumno no tiene un plan de estudios asignado.");
                 materiasDisponibles = new ArrayList<>();
@@ -64,24 +76,16 @@ public class InscribirMateriaController implements AlumnoListener, MateriaListen
             materiasDisponibles = new ArrayList<>();
         }
 
-        view.actualizarMaterias(materiasDisponibles);
+        actualizarComboMaterias();
     }
 
 
-    public void actualizarComboMaterias() {
-        JComboBox<Materia> comboMateria = view.getComboMateria();
-        comboMateria.removeAllItems(); // Limpia el combo box
-
-        for (Materia materia : materiasDisponibles) {
-            comboMateria.addItem(materia); // Agrega las materias al combo
-        }
-    }
 
 
     private void inscribirMateria() {
         int indiceAlumno = view.getComboAlumno().getSelectedIndex();
         if (indiceAlumno < 0 || indiceAlumno >= listaAlumnos.size()) {
-            JOptionPane.showMessageDialog(view, "Debe seleccionar un alumno.", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(view, "Debe seleccionar un alumno.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -89,7 +93,7 @@ public class InscribirMateriaController implements AlumnoListener, MateriaListen
 
         Materia materiaSeleccionada = (Materia) view.getComboMateria().getSelectedItem();
         if (materiaSeleccionada == null) {
-            JOptionPane.showMessageDialog(view, "Debe seleccionar una materia.", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(view, "Debe seleccionar una materia.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -103,13 +107,16 @@ public class InscribirMateriaController implements AlumnoListener, MateriaListen
             alumnoMateria = new AlumnoMateria(materiaSeleccionada);
             alumnoSeleccionado.getHistorialAcademico().add(alumnoMateria);
 
-            JOptionPane.showMessageDialog(view, "Inscripción realizada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            viewUtils.showScaledMessageDialog(view, "Inscripción realizada exitosamente.", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(view, "El alumno ya está inscrito en esta materia.", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(view, "El alumno ya está inscrito en esta materia.", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
+        view.resetCombos();
 
         actualizarMateriasParaAlumnoSeleccionado();
     }
+
 
 
     @Override
@@ -127,7 +134,7 @@ public class InscribirMateriaController implements AlumnoListener, MateriaListen
         if (!materiasDisponibles.contains(materia)) {
             materiasDisponibles.add(materia);
         }
-        view.actualizarMaterias(materiasDisponibles); // Refleja el cambio en el combo box
+        actualizarComboMaterias();
     }
 
 }

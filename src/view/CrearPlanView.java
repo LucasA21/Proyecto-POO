@@ -154,6 +154,10 @@ public class CrearPlanView extends JPanel {
         }
     }
 
+    public void resetCombos() {
+        comboTipo.setSelectedItem(null);
+    }
+
 
 
 

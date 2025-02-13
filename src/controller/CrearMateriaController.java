@@ -3,6 +3,7 @@ package controller;
 import model.Materia;
 import model.MateriaListener;
 import view.CrearMateriaView;
+import view.viewUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -46,7 +47,7 @@ public class CrearMateriaController {
         boolean esPromocionable = view.getCheckPromocion().isSelected();
 
         if (nombre.isEmpty() || cuatrimestreStr.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -54,7 +55,7 @@ public class CrearMateriaController {
         try {
             cuatrimestre = Integer.parseInt(cuatrimestreStr);
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "El cuatrimestre debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "El cuatrimestre debe ser un número válido.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -83,7 +84,7 @@ public class CrearMateriaController {
 
         view.actualizarCorrelativas(listaMaterias);
         view.limpiarCampos();
-        JOptionPane.showMessageDialog(null, "Materia creada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        viewUtils.showScaledMessageDialog(null, "Materia creada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private Materia buscarMateria(String nombre) {

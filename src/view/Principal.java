@@ -133,7 +133,7 @@ public class Principal extends JFrame {
 
         // Calcular espaciado dinámico basado en el tamaño de la ventana
         int panelHeight = getHeight();
-        int dynamicSpacing = (int) (panelHeight * 0.025);
+        int dynamicSpacing = (int) (panelHeight * 0.023);
 
         GridBagConstraints gbcButtons = new GridBagConstraints();
         gbcButtons.gridx = 0;
@@ -185,5 +185,14 @@ public class Principal extends JFrame {
         bottomRightPanel.add(view);
         bottomRightPanel.revalidate();
         bottomRightPanel.repaint();
+
+        try {
+            view.getClass().getMethod("resetCombos").invoke(view);
+        } catch (NoSuchMethodException e) {
+            // Si la view no tiene resetCombos(), no hacer nada
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

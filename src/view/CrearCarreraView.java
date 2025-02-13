@@ -215,6 +215,10 @@ public class CrearCarreraView extends JPanel {
         }
     }
 
+    public void resetCombos() {
+        comboPlanes.setSelectedItem(null);
+    }
+
 
 
 }

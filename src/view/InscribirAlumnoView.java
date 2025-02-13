@@ -85,5 +85,11 @@ public class InscribirAlumnoView extends JPanel {
         return btnEnviar; // Devuelve el botón de enviar
     }
 
+    public void resetCombos() {
+        comboAlumno.setSelectedItem(null);
+        comboCarrera.setSelectedItem(null);
+    }
+
+
 
 }

@@ -14,36 +14,40 @@
             this.materias = new ArrayList<>();
         }
 
-        public String getNombre() {
-            return nombre;
+        public void agregarMateria(Materia materia){
+            materias.add(materia);
         }
 
-        public TipoPlan getTipoPlan() {
-            return tipoPlan;
+        public List<Materia> getMateriasDisponiblesParaAlumno(Alumno alumno) {
+            System.out.println("Buscando materias disponibles para: " + alumno.getNombre());
+
+            if (materias.isEmpty()) {
+                System.err.println("El plan de estudio no tiene materias.");
+            }
+
+            List<Materia> disponibles = new ArrayList<>();
+
+            for (Materia materia : materias) {
+                boolean puedeCursar = tipoPlan.getEstrategia().puedeCursar(materia, alumno);
+                System.out.println("Evaluando materia: " + materia.getNombre() + " | Puede cursar: " + puedeCursar);
+
+                if (puedeCursar) {
+                    disponibles.add(materia);
+                }
+            }
+
+            System.out.println("Materias disponibles para " + alumno.getNombre() + ": " + disponibles);
+
+            return disponibles;
+        }
+
+        public String getNombre() {
+            return nombre;
         }
 
         public List<Materia> getMaterias() {
             return materias;
         }
-
-        public void agregarMateria(Materia materia){
-            materias.add(materia);
-        }
-
-        public boolean puedeCursar(Materia materia, Alumno alumno){
-            return  tipoPlan.getEstrategia().puedeCursar(materia,alumno);
-        }
-
-        public List<Materia> getMateriasDisponiblesParaAlumno(Alumno alumno) {
-            List<Materia> disponibles = new ArrayList<>();
-            for (Materia materia : materias) {
-                if (tipoPlan.getEstrategia().puedeCursar(materia, alumno)) {
-                    disponibles.add(materia);
-                }
-            }
-            return disponibles;
-        }
-
 
         @Override
         public String toString() {

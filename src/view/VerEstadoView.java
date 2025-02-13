@@ -80,7 +80,10 @@ public class VerEstadoView extends JPanel {
         add(scrollPane, gbc);
     }
 
-    // Getters para acceder a los componentes
+    public void resetCombos() {
+        comboAlumno.setSelectedItem(null);
+    }
+
     public JComboBox<Alumno> getComboAlumno() {
         return comboAlumno;
     }
@@ -89,7 +92,6 @@ public class VerEstadoView extends JPanel {
         return btnEnviar;
     }
 
-    // Método para actualizar la información del alumno
     public void setInformacionAlumno(String info) {
         textAreaInfo.setText(info);
     }

@@ -2,6 +2,7 @@ package controller;
 
 import model.*;
 import view.InscribirAlumnoView;
+import view.viewUtils;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -22,16 +23,12 @@ public class InscribirAlumnoController implements AlumnoListener, CarreraListene
         this.listaCarreras = crearCarreraController.getListaCarreras();
         this.listaInscripciones = new ArrayList<>();
 
-
-        // Registrar listeners
         crearAlumnoController.addAlumnoListener(this);
         crearCarreraController.addCarreraListener(this);
 
-        // Actualizar combos
         actualizarComboAlumnos();
         actualizarComboCarreras();
 
-        // Agregar acción al botón de enviar
         this.view.getBtnEnviar().addActionListener(e -> inscribirAlumno());
     }
 
@@ -58,12 +55,12 @@ public class InscribirAlumnoController implements AlumnoListener, CarreraListene
         Carrera carreraSeleccionada = (Carrera) view.getComboCarrera().getSelectedItem();
 
         if (alumnoSeleccionado == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un alumno", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "Debe seleccionar un alumno", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         if (carreraSeleccionada == null) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una carrera", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "Debe seleccionar una carrera", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -71,7 +68,7 @@ public class InscribirAlumnoController implements AlumnoListener, CarreraListene
         for (InscripcionCarrera inscripcion : listaInscripciones) {
             if (inscripcion.getAlumno().equals(alumnoSeleccionado) &&
                     inscripcion.getCarrera().equals(carreraSeleccionada)) {
-                JOptionPane.showMessageDialog(null, "El alumno ya está inscrito en esta carrera", "Error", JOptionPane.ERROR_MESSAGE);
+                viewUtils.showScaledMessageDialog(null, "El alumno ya está inscrito en esta carrera", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
         }
@@ -82,7 +79,14 @@ public class InscribirAlumnoController implements AlumnoListener, CarreraListene
 
         alumnoSeleccionado.setCarrera(carreraSeleccionada);
 
-        JOptionPane.showMessageDialog(null, "Inscripción realizada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        // Imprimir el estado después de asignar la carrera
+        System.out.println("Alumno " + alumnoSeleccionado.getNombre() + " inscrito en carrera: " + carreraSeleccionada.getNombre());
+        System.out.println("Plan de estudio asignado: " + carreraSeleccionada.getPlanEstudio().getNombre());
+        System.out.println("Materias en el plan de estudio de la carrera: " + carreraSeleccionada.getPlanEstudio().getMaterias());
+
+
+        viewUtils.showScaledMessageDialog(null, "Inscripción realizada exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        view.resetCombos();
     }
 
     @Override
@@ -98,8 +102,4 @@ public class InscribirAlumnoController implements AlumnoListener, CarreraListene
         actualizarComboCarreras();
     }
 
-
-    public List<InscripcionCarrera> getListaInscripciones() {
-        return listaInscripciones;
-    }
 }

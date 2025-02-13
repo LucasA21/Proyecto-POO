@@ -5,7 +5,6 @@ import model.Materia;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class InscribirMateriaView extends JPanel {
     private JComboBox<Alumno> comboAlumno;
@@ -84,18 +83,8 @@ public class InscribirMateriaView extends JPanel {
         return btnEnviar;
     }
 
-    // Métodos para actualizar los datos del ComboBox
-    public void actualizarAlumnos(Alumno[] alumnos) {
-        comboAlumno.removeAllItems();
-        for (Alumno alumno : alumnos) {
-            comboAlumno.addItem(alumno);
-        }
-    }
-
-    public void actualizarMaterias(List<Materia> materias) {
-        comboMateria.removeAllItems(); // Limpia el combo box
-        for (Materia materia : materias) {
-            comboMateria.addItem(materia); // Agrega los objetos Materia directamente
-        }
+    public void resetCombos() {
+        comboAlumno.setSelectedItem(null);
+        comboMateria.setSelectedItem(null);
     }
 }

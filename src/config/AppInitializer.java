@@ -26,21 +26,27 @@ public class AppInitializer {
         CrearCarreraController crearCarreraController = new CrearCarreraController(crearCarreraView, crearPlanEstudioController);
         InscribirAlumnoController inscribirAlumnoController = new InscribirAlumnoController(inscribirAlumnoView, crearAlumnoController, crearCarreraController);
         InscribirMateriaController inscribirMateriaController = new InscribirMateriaController(inscribirMateriaView, crearAlumnoController,crearMateriaController);
+        AgregarNotasController agregarNotasController = new AgregarNotasController(agregarNotasView, crearAlumnoController);
+
+
 
         // Conectar controladores
         crearAlumnoController.setVerEstadoController(verEstadoController);
         crearAlumnoController.setInscribirAlumnoController(inscribirAlumnoController);
         crearAlumnoController.setInscribirMateriaController(inscribirMateriaController);
+        crearAlumnoController.setAgregarNotasController(agregarNotasController);
         crearCarreraController.setInscribirAlumnoController(inscribirAlumnoController);
         crearAlumnoController.addAlumnoListener(inscribirMateriaController);
         crearAlumnoController.addAlumnoListener(inscribirAlumnoController);
         crearMateriaController.addMateriaListener(inscribirMateriaController);
         crearMateriaController.setInscribirMateriaController(inscribirMateriaController);
+        crearAlumnoController.addAlumnoListener(agregarNotasController);
 
         // Precargar alumnos
         Alumno alumno1 = new Alumno("41951221", "Lucas Araya");
         Alumno alumno2 = new Alumno("43952231", "Abril Gonzalez");
         Alumno alumno3 = new Alumno("39721121", "Silvina Faraoni");
+
 
         crearAlumnoController.setAlumno(alumno1);
         crearAlumnoController.setAlumno(alumno2);
@@ -51,6 +57,7 @@ public class AppInitializer {
         verEstadoController.cargarListaAlumnos();
         inscribirAlumnoController.actualizarComboAlumnos();
         inscribirMateriaController.actualizarComboAlumnos();
+        agregarNotasController.actualizarComboAlumnos();
 
         // Precargas materias
         Materia materia1 = new Materia("Algebra", 1, true, false);
@@ -73,27 +80,31 @@ public class AppInitializer {
 
         // Precargar plan de estudio
         crearPlanEstudioController.addPlanEstudioListener(crearCarreraController);
-        PlanEstudio planEstudio1 = new PlanEstudio("Plan Informática 2025", TipoPlan.PLAN_C);
+        PlanEstudio planEstudio1 = new PlanEstudio("Plan Informática 2025 - (PLAN A)", TipoPlan.PLAN_A);
         planEstudio1.agregarMateria(materia1);
         planEstudio1.agregarMateria(materia2);
         planEstudio1.agregarMateria(materia3);
         planEstudio1.agregarMateria(materia4);
         planEstudio1.agregarMateria(materia5);
 
+
         if (!crearPlanEstudioController.getListaPlanes().contains(planEstudio1)) {
             crearPlanEstudioController.getListaPlanes().add(planEstudio1);
         }
 
+
         // Precargar carrera
         crearCarreraController.addCarreraListener(inscribirAlumnoController);
-        Carrera carrera1 = new Carrera("Analista en Sistemas", planEstudio1, 2); // 2 optativas requeridas
+        Carrera carrera1 = new Carrera("Analista en Sistemas - (PLAN A)", planEstudio1, 2); // 2 optativas requeridas
         carrera1.agregarMateriaObligatoria(materia1);
         carrera1.agregarMateriaObligatoria(materia2);
+        carrera1.agregarMateriaObligatoria(materia3);
         carrera1.agregarMateriaOptativa(materia4);
         carrera1.agregarMateriaOptativa(materia5);
 
         crearCarreraController.getListaCarreras().add(carrera1); // Agregar la carrera
         crearCarreraController.planEstudioCreado(planEstudio1);
+
 
         // Actualizar vistas con datos precargados
         inscribirAlumnoController.actualizarComboCarreras();

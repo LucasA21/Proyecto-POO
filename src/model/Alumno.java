@@ -15,27 +15,6 @@ public class Alumno {
         this.historialAcademico = new ArrayList<>();
     }
 
-    // Getters básicos
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getDni() {
-        return dni;
-    }
-
-    public Carrera getCarrera() {
-        return carrera;
-    }
-
-    public void setCarrera(Carrera carrera) {
-        this.carrera = carrera;
-    }
-
-    // Métodos relacionados con el historial académico
-    public void agregarMateria(Materia materia) {
-        historialAcademico.add(new AlumnoMateria(materia));
-    }
 
     public AlumnoMateria getAlumnoMateria(Materia materia) {
         for (AlumnoMateria am : historialAcademico) {
@@ -77,6 +56,22 @@ public class Alumno {
 
     public List<AlumnoMateria> getHistorialAcademico() {
         return historialAcademico;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getDni() {
+        return dni;
+    }
+
+    public Carrera getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(Carrera carrera) {
+        this.carrera = carrera;
     }
 
 

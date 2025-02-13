@@ -10,18 +10,13 @@ public enum TipoPlan {
     PLAN_E(new PlanE(), "Aprobó los finales de las correlativas y los finales de todas las materias de 3 cuatrimestres previos");
 
     private final PlanStrategy estrategia;
-    private final String descripcion;
 
     TipoPlan(PlanStrategy estrategia, String descripcion) {
         this.estrategia = estrategia;
-        this.descripcion = descripcion;
     }
 
     public PlanStrategy getEstrategia() {
         return estrategia;
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
 }

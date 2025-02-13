@@ -26,10 +26,6 @@ public class Carrera {
         return planEstudio;
     }
 
-    public void setPlanEstudio(PlanEstudio planEstudio) {
-        this.planEstudio = planEstudio;
-    }
-
     public List<Materia> getMateriasObligatorias() {
         return materiasObligatorias;
     }
@@ -50,9 +46,6 @@ public class Carrera {
         return cantidadOptativasRequeridas;
     }
 
-    public void setCantidadOptativasRequeridas(int cantidadOptativasRequeridas) {
-        this.cantidadOptativasRequeridas = cantidadOptativasRequeridas;
-    }
     @Override
     public String toString() {
         return nombre;

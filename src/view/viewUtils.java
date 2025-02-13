@@ -23,4 +23,42 @@ import java.awt.*;
             Image resizedImage = image.getScaledInstance(size, size, Image.SCALE_SMOOTH);
             return new ImageIcon(resizedImage);
         }
+
+        public static void showScaledMessageDialog(Component parent, String message, String title, int messageType) {
+            // Obtener tamaño de la pantalla
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            int screenWidth = screenSize.width;
+            int screenHeight = screenSize.height;
+
+            double widthFactor = 0.3; // 30% del ancho de la pantalla
+            double heightFactor = 0.3; // 30% del alto de la pantalla
+
+            int maxWidth = (int) (screenWidth * widthFactor);
+            int maxHeight = (int) (screenHeight * heightFactor);
+
+            //JLabel con HTML para el formato y centrado del texto
+            JLabel label = new JLabel("<html><div style='text-align: center;'>" + message.replace("\n", "<br>") + "</div></html>");
+            label.setFont(getScaledFont(new Font("Arial", Font.PLAIN, 14), 0.015)); // Tamaño responsivo de la fuente
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+
+            // Medir tamaño del texto y ajustarlo al cuadro de diálogo
+            FontMetrics metrics = label.getFontMetrics(label.getFont());
+            int textWidth = metrics.stringWidth(message);
+            int textHeight = metrics.getHeight() * (message.split("\n").length + 1);
+
+            int finalWidth = Math.min(maxWidth, textWidth + 60); // Ajuste dinámico del ancho
+            int finalHeight = Math.min(maxHeight, textHeight + 90); // Ajuste dinámico de la altura
+
+            // Crear y mostrar el JOptionPane
+            JOptionPane optionPane = new JOptionPane(label, messageType);
+            JDialog dialog = optionPane.createDialog(parent, title);
+            dialog.setSize(finalWidth, finalHeight);
+            dialog.setResizable(false);
+            dialog.setLocationRelativeTo(parent); // Centrar en la pantalla
+            dialog.setVisible(true);
+        }
+
+
+
+
     }

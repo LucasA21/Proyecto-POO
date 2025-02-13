@@ -24,13 +24,16 @@ public class Materia {
     }
 
 
-    // Aca hay que implementar un metodo para verificar si el alumno puede promocionar. ( nota >= 7 && esPromocionable = true)
+    public void agregarCorrelativas(Materia correlativa) {
+        if (!correlativas.contains(correlativa)) {
+            correlativas.add(correlativa);
+        }
+    }
 
-    // Aca hay que implementar un metodo para verificar si el alumno aprueba la cursada ( nota >= 4 )
-
-    // Aca hay que implementar un metodo para verificar si el alumno aprobo el final (nota >= 4 && aproboCursada = true)
-
-
+    @Override
+    public String toString() {
+        return nombre;
+    }
 
     public String getNombre() {
         return nombre;
@@ -38,17 +41,16 @@ public class Materia {
 
     public boolean esObligatoria(){return esObligatoria;}
 
+    public boolean esPromocionable() {
+        return esPromocionable;
+    }
+
     public Integer getCuatrimestre() {return  cuatrimestre;}
 
     public List<Materia> getCorrelativas() {
         return correlativas;
     }
 
-    public void agregarCorrelativas(Materia correlativa) {
-        if (!correlativas.contains(correlativa)) {
-            correlativas.add(correlativa);
-        }
-    }
 }
 
 

@@ -3,6 +3,7 @@ package controller;
 import model.Alumno;
 import model.AlumnoListener;
 import view.CrearAlumnoView;
+import view.viewUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -14,6 +15,7 @@ public class CrearAlumnoController {
     private List<Alumno> listaAlumnos;
     private List<AlumnoListener> listeners;
     private VerEstadoController verEstadoController;
+    private AgregarNotasController agregarNotasController;
     private InscribirAlumnoController inscribirAlumnoController;
     private InscribirMateriaController inscribirMateriaController;
 
@@ -37,6 +39,10 @@ public class CrearAlumnoController {
         this.inscribirMateriaController = inscribirMateriaController;
     }
 
+    public void setAgregarNotasController(AgregarNotasController agregarNotasController) {
+        this.agregarNotasController = agregarNotasController;
+    }
+
     public void setAlumno(Alumno alumno) {
         listaAlumnos.add(alumno);
     }
@@ -44,7 +50,6 @@ public class CrearAlumnoController {
     public void addAlumnoListener(AlumnoListener listener) {
         if (!listeners.contains(listener)) {
             listeners.add(listener);
-            System.out.println("Listener registrado: " + listener.getClass().getSimpleName());
         }
     }
 
@@ -58,7 +63,7 @@ public class CrearAlumnoController {
         String nombre = view.getTextNombre();
 
         if (dni.isEmpty() || nombre.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+            viewUtils.showScaledMessageDialog(null, "Todos los campos son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -81,7 +86,11 @@ public class CrearAlumnoController {
             inscribirMateriaController.actualizarComboAlumnos();
         }
 
+        if (agregarNotasController != null){
+            agregarNotasController.actualizarComboAlumnos();
+        }
+
         view.limpiarCampos();
-        JOptionPane.showMessageDialog(null, "Alumno creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        viewUtils.showScaledMessageDialog(null, "Alumno creado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
     }
 }
