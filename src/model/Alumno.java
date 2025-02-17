@@ -45,15 +45,6 @@ public class Alumno {
         return finales;
     }
 
-    private AlumnoMateria buscarAlumnoMateria(Materia materia) {
-        for (AlumnoMateria alumnoMateria : historialAcademico) {
-            if (alumnoMateria.getMateria().equals(materia)) {
-                return alumnoMateria;
-            }
-        }
-        return null;
-    }
-
     public List<AlumnoMateria> getHistorialAcademico() {
         return historialAcademico;
     }
