@@ -2,6 +2,7 @@ package config;
 
 import controller.*;
 import model.*;
+import model.Planes.PlanA;
 import view.*;
 
 public class AppInitializer {
@@ -80,7 +81,7 @@ public class AppInitializer {
 
         // Precargar plan de estudio
         crearPlanEstudioController.addPlanEstudioListener(crearCarreraController);
-        PlanEstudio planEstudio1 = new PlanEstudio("Plan Informática 2025 - (PLAN A)", TipoPlan.PLAN_A);
+        PlanEstudio planEstudio1 = new PlanEstudio("Plan Informática 2025 - (PLAN A)", new PlanA());
         planEstudio1.agregarMateria(materia1);
         planEstudio1.agregarMateria(materia2);
         planEstudio1.agregarMateria(materia3);

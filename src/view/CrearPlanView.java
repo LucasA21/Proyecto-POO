@@ -1,8 +1,6 @@
 package view;
 
 import model.Materia;
-import model.PlanEstudio;
-import model.TipoPlan;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,7 +10,7 @@ import java.util.List;
 public class CrearPlanView extends JPanel {
 
     private JTextField textNombre;
-    private JComboBox<TipoPlan> comboTipo;
+    private JComboBox<String> comboTipo;
     private JPanel panelMaterias;
     private JButton btnEnviar;
 
@@ -45,8 +43,10 @@ public class CrearPlanView extends JPanel {
         // Etiqueta y JComboBox para Tipo de plan
         JLabel labelTipo = new JLabel("Tipo de plan:");
         labelTipo.setFont(generalFont);
-        comboTipo = new JComboBox<>(TipoPlan.values());
+
+        comboTipo = new JComboBox<>();
         comboTipo.setFont(generalFont);
+        llenarComboTipoPlan();
 
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -96,6 +96,14 @@ public class CrearPlanView extends JPanel {
         add(btnEnviar, gbc);
     }
 
+    private void llenarComboTipoPlan() {
+        comboTipo.addItem("Plan A");
+        comboTipo.addItem("Plan B");
+        comboTipo.addItem("Plan C");
+        comboTipo.addItem("Plan D");
+        comboTipo.addItem("Plan E");
+    }
+
     public void actualizarMaterias(List<Materia> materiasDisponibles) {
         panelMaterias.removeAll();
 
@@ -134,8 +142,8 @@ public class CrearPlanView extends JPanel {
         return textNombre.getText();
     }
 
-    public TipoPlan getTipoPlan() {
-        return (TipoPlan) comboTipo.getSelectedItem();
+    public String getTipoPlan() {
+        return (String) comboTipo.getSelectedItem();
     }
 
     public JButton getBtnEnviar() {

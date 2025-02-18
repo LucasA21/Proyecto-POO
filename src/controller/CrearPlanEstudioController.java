@@ -1,6 +1,7 @@
 package controller;
 
 import model.*;
+import model.Planes.*;
 import view.CrearPlanView;
 import view.viewUtils;
 
@@ -46,14 +47,38 @@ public class CrearPlanEstudioController implements MateriaListener{
 
         public void crearPlan(){
                 String nombre = view.getTextNombre();
-                TipoPlan tipoPlan = view.getTipoPlan();
+                String tipoPlanSeleccionado = view.getTipoPlan();
 
                 if (nombre.isEmpty()){
                         viewUtils.showScaledMessageDialog(null,"El nombre no puede estar vacio","Error",JOptionPane.ERROR_MESSAGE);
                         return;
                 }
 
-                PlanEstudio planEstudio = new PlanEstudio(nombre,tipoPlan);
+                // Determinar qué estrategia de plan usar
+                PlanStrategy estrategia;
+                switch (tipoPlanSeleccionado) {
+                        case "Plan A":
+                                estrategia = new PlanA();
+                                break;
+                        case "Plan B":
+                                estrategia = new PlanB();
+                                break;
+                        case "Plan C":
+                                estrategia = new PlanC();
+                                break;
+                        case "Plan D":
+                                estrategia = new PlanD();
+                                break;
+                        case "Plan E":
+                                estrategia = new PlanE();
+                                break;
+                        default:
+                                viewUtils.showScaledMessageDialog(null, "Debe seleccionar un tipo de plan válido", "Error", JOptionPane.ERROR_MESSAGE);
+                                return;
+                }
+
+                // Crear el plan de estudio con la estrategia seleccionada
+                PlanEstudio planEstudio = new PlanEstudio(nombre, estrategia);
 
                 List<Materia> materiasSeleccionadas = new ArrayList<>();
                 for (JCheckBox checkBox: view.getCheckboxMaterias()){

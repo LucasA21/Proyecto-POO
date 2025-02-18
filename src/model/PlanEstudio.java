@@ -5,12 +5,12 @@
 
     public class PlanEstudio {
         private String nombre;
-        private TipoPlan tipoPlan;
+        private PlanStrategy estrategia;
         private List<Materia> materias;
 
-        public PlanEstudio(String nombre, TipoPlan tipoPlan){
+        public PlanEstudio(String nombre, PlanStrategy estrategia){
             this.nombre = nombre;
-            this.tipoPlan = tipoPlan;
+            this.estrategia = estrategia;
             this.materias = new ArrayList<>();
         }
 
@@ -28,7 +28,7 @@
             List<Materia> disponibles = new ArrayList<>();
 
             for (Materia materia : materias) {
-                boolean puedeCursar = tipoPlan.getEstrategia().puedeCursar(materia, alumno);
+                boolean puedeCursar = estrategia.puedeCursar(materia, alumno);
                 System.out.println("Evaluando materia: " + materia.getNombre() + " | Puede cursar: " + puedeCursar);
 
                 if (puedeCursar) {
